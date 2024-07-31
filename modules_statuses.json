@@ -1,0 +1,10 @@
+{
+    "Crm": true,
+    "Clinic": true,
+    "Course": true,
+    "Product": true,
+    "Lms": true,
+    "Migration": true,
+    "ChangeForeignKey": true,
+    "Event": true
+}
