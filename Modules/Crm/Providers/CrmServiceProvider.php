@@ -28,7 +28,7 @@ class CrmServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerViews();
 
-        $this->loadViewsFrom(base_path('resources\views'),'masterView');
+        $this->loadViewsFrom(base_path('resources\views\\'),'masterView');
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
 
