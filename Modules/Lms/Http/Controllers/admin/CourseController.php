@@ -157,15 +157,8 @@ class CourseController extends Controller
 
 
         $status=$Course->update($request->all());
-//        if ($request->has('image') && $request->file('image')->isValid()) {
-//            $file = $request->file('image');
-//            $image = "course-" . time() . "." . $request->file('image')->extension();
-//            $path = public_path('/documents/');
-//            $files = $request->file('image')->move($path, $image);
-//            $Course->image=$image;
-//            $Course->save();
-//        }
-        DB::table('course_teacher')->where('course_id', $Course->id)->delete();
+        //DB::table('course_teacher')->where('course_id', $Course->id)->delete();
+        $Course->teachers()->detach();
         $Course->teachers()->attach($request->teacher);
 
         if($status)

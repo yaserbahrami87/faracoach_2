@@ -1,7 +1,74 @@
 @slot('headerScript')
+    <link href="/dashboard/plugins/datatables/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link href="/dashboard/plugins/datatables/jquery.dataTables_themeroller.css" rel="stylesheet" />
+
+
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
     <!-- Alpine v3 -->
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        /* Hide default HTML checkbox */
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        /* The slider */
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        input:checked + .slider {
+            background-color: #2196F3;
+        }
+
+        input:focus + .slider {
+            box-shadow: 0 0 1px #2196F3;
+        }
+
+        input:checked + .slider:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
+        }
+
+        /* Rounded sliders */
+        .slider.round {
+            border-radius: 34px;
+        }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+    </style>
 @endslot
 <div class="col-12 table-responsive card">
     <div class="card-header">لیست برگزارکننده های دوره</div>
@@ -57,11 +124,11 @@
             <thead>
             <tr class="text-center">
                 <th>ردیف</th>
-                <th></th>
-                <th>نام</th>
-                <th>نام خانوادگی</th>
+                <th>عکس</th>
+                <th>نام و نام خانوادگی</th>
                 <th>تعداد رویداد</th>
-                <th></th>
+                <th>فعال/غیرفعال</th>
+                <th>حذف</th>
             </tr>
             </thead>
             <tbody>
@@ -75,13 +142,18 @@
                             <img src="{{'/images/'.$organizer->user->personal_image}}" width="50px" class="rounded-circle" />
                         @endif
                     </td>
-                    <td>{{$organizer->user->fname}}</td>
-                    <td>{{$organizer->user->lname}}</td>
+                    <td>{{$organizer->user->fname.' '.$organizer->user->lname}}</td>
                     <td>
 
                     </td>
+                    <td>
+                        <label class="switch">
+                            <input type="checkbox" title="{{$organizer->id}}"  wire:change="changeStatus('{{$organizer->id}}')" {{($organizer->status==1)?'checked':''}}  />
+                            <span class="slider round"></span>
+                        </label>
+                    </td>
                     <td class="p-1">
-                       <button type="button" class="btn btn-danger" wire:click="destroy({{$organizer->id}})" onclick="confirm('آیا از حذف برگزار کننده اطمینان دارید؟') || event.stopImmediatePropagation()"> غیر فعال کردن</button>
+                       <button type="button" class="btn btn-danger" wire:click="destroy({{$organizer->id}})" onclick="confirm('آیا از حذف برگزار کننده اطمینان دارید؟') || event.stopImmediatePropagation()"> حذف برگزارکننده</button>
                     </td>
                 </tr>
             @endforeach
@@ -91,3 +163,12 @@
 
     </div>
 </div>
+@slot('footerScript')
+    <script src="/dashboard/plugins/datatables/jquery.dataTables.js"></script>
+    <script src="/dashboard/plugins/datatables/dataTables.bootstrap4.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').DataTable();
+        } );
+    </script>
+@endslot

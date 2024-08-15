@@ -1,7 +1,7 @@
 @component("masterView::admin.master.index")
 
-<div class="col-12 col-md-8 mx-auto card">
-    <div class="card-header">اضافه کردن دوره</div>
+<div class="col-12 col-md-8 mx-auto">
+    <div class="card">
     <div class="card-body">
 
         <div class="card-header">
@@ -110,13 +110,27 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="teacher">مدرس:<span class="text text-danger">*</span></label>
-                            <select id="teacher" class="form-control p-0 @error('teacher') is-invalid @enderror" name="teacher[]"  multiple>
-                                <option selected disabled>انتخاب کنید</option>
+                            <label for="teacher">مدرس/مدرس ها<span class="text-danger">*</span></label>
+                            <div class="row">
                                 @foreach($Teachers as $item)
-                                    <option value="{{$item->id}}" @if($item->id==old('teacher')) selected @endif>{{!is_null($item->user->lname)?$item->user->fname.' '.$item->user->lname:$item->user->tel}}</option>
+                                    <div class="col-md-3">
+                                        <div class="custom-control custom-checkbox image-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="teacher{{$item->id}}" name="teacher[]" value="{{$item->id}}" @if($Course->teachers->where('user_id',$item->user_id)->first()) checked @endif >
+                                            <label class="custom-control-label text-center" for="teacher{{$item->id}}">
+
+                                                @if(is_null($item->user->personal_image))
+                                                    <img src="/images/users/default-avatar.png" width="60px" height="60px">
+                                                @else
+                                                    <img src="/documents/users/{{$item->user->personal_image}}" width="60px" height="60px">
+                                                @endif
+                                                {{($item->user->lname)?$item->user->fname.' '.$item->user->lname:$item->user->tel}}
+                                            </label>
+                                        </div>
+                                    </div>
                                 @endforeach
-                            </select>
+
+                            </div>
+
                             @error('teacher')
                             <p class="text text-danger" role="alert">
                                 {{ $message }}
@@ -218,6 +232,7 @@
                 <button type="submit" class="btn btn-primary">بروزرسانی</button>
             </form>
         </div>
+    </div>
     </div>
 </div>
 

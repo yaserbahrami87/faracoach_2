@@ -27,4 +27,9 @@ class Event extends Model
     {
         return $this->belongsToMany(EventOrganizer::class,'event_eventorganizer','event_id','eventorganizer_id');
     }
+
+    public function participants()
+    {
+        return $this->hasMany(EventParticipants::class);
+    }
 }

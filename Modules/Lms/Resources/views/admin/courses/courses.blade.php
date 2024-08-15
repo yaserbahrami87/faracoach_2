@@ -11,6 +11,7 @@
                     <thead>
                     <tr>
                         <th>نام دوره</th>
+                        <th>مدرس/مدرسین</th>
                         <th>تعداد دانشجو</th>
                         <th>وضعیت</th>
                         <th>ویرایش</th>
@@ -21,6 +22,11 @@
                     @foreach($Courses as $Course)
                         <tr>
                             <td>{{$Course->course}}</td>
+                            <td>
+                                @foreach($Course->teachers as $teacher)
+                                   <p>{{$teacher->user->fname.' '.$teacher->user->lname}}</p>
+                                @endforeach
+                            </td>
                             <td>
                                 <a href="{{route('admin.course.students.course',['Course'=>$Course->shortlink])}}" class="btn btn-outline-primary">{{$Course->students->count()}}</a>
 

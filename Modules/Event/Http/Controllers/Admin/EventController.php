@@ -100,9 +100,13 @@ class EventController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function edit($id)
+    public function edit(Event $event)
     {
-        return view('event::edit');
+        $organizers=EventOrganizer::where('status',1)
+                ->get();
+        return view('event::admin.events.event-edit')
+                    ->with('organizers',$organizers)
+                    ->with('event',$event);
     }
 
     /**
@@ -111,9 +115,45 @@ class EventController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,Event $event)
     {
-        //
+
+        $request->validate([
+            'event'         => 'required|persian_alpha_num|min:3|unique:events,event,'.$event->id,
+            'shortlink'     => 'required|string|min:3|unique:events,shortlink,'.$event->id,
+            'eventorganizer_id'=> 'required|array',
+            'description'   => 'required|string|min:3|',
+            'capacity'      => 'required|numeric|',
+            'type'          => 'required|numeric|',
+            'address'       => 'required_with:type,1|string|',
+            'image'         => 'nullable|string|max:200',
+            'video'         => 'nullable|string|min:3|',
+            'start_date'    => 'required|date_format:Y/m/d|max:11|',
+            'start_time'    => 'required|string|max:6|',
+            'end_date'      => 'required|date_format:Y/m/d|max:11|',
+            'end_time'      => 'required|string|max:6|',
+            'duration'      => 'required|string|min:3|',
+            'expire_date'   => 'required|date_format:Y/m/d|max:11|',
+            'event_text'    => 'required|string|min:10|',
+            'heading'       => 'nullable|string|min:10|',
+            'contacts'      => 'nullable|string|min:10|',
+            'faq'           => 'nullable|string|min:10|',
+            'links'         => 'nullable|string|min:10|',
+        ]);
+
+        $event->eventOrganizers()->detach();
+        $event->eventOrganizers()->attach($request->eventorganizer_id);
+        $status=$event->update($request->all());
+        if($status)
+        {
+            alert()->success('بروزرسانی با موفقیت انجام شد')->persistent('بستن');
+        }
+        else
+        {
+            alert()->error('خطا در بروزرسانی')->persistent('بستن');
+        }
+
+        return redirect()->route('admin.event.all');
     }
 
     /**
@@ -121,8 +161,24 @@ class EventController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function destroy($id)
+    public function destroy(Event $event)
     {
-        //
+        $status=$event->delete();
+        if($status)
+        {
+            alert()->success('رویداد با موفقیت حذف شد')->persistent('بستن');
+        }
+        else
+        {
+            alert()->error('خطا در حذف رویداد')->persistent('بستن');
+        }
+        return redirect()->route('admin.event.all');
+    }
+
+    public function participants(Event $event)
+    {
+        $participants=$event->participants;
+        return view('event::admin.events.event-participants')
+                        ->with('event',$event);
     }
 }

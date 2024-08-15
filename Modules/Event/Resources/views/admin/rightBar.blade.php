@@ -8,15 +8,15 @@
     </a>
     <ul class="nav nav-treeview">
         <li class="nav-item">
-            <a href="{{route('admin.event.all')}}" class="nav-link active">
+            <a href="{{route('admin.event.all')}}" class="nav-link">
                 <i class="fa fa-circle-o nav-icon"></i>
                 <p>همه رویدادها</p>
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{route('admin.event.create')}}" class="nav-link">
+            <a href="{{route('admin.event.organizers')}}" class="nav-link">
                 <i class="fa fa-circle-o nav-icon"></i>
-                <p>اضافه کردن رویداد</p>
+                <p>برگزارکننده</p>
             </a>
         </li>
 

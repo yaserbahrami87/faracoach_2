@@ -69,6 +69,9 @@
     <div class="card col-12 table-responsive" >
         <div class="card-header">        لیست رویدادها    </div>
         <div class="card-body">
+            <a href="{{route('admin.event.create')}}" class="btn btn-outline-primary btn-sm">
+                افزودن رویداد
+            </a>
             <table id="example" class="table table-striped table-bordered" style="width:100%">
                 <thead>
                 <tr>
@@ -101,14 +104,10 @@
                             </a>
                         </td>
                         <td>
-                            <a href="{{asset('/event/'.$item->shortlink)}}">
-                                {{$item->start_date}}
-                            </a>
+                            {{$item->start_date}}
                         </td>
                         <td>
-                            <a href="{{asset('/event/'.$item->shortlink)}}">
-                                {{$item->start_time}}
-                            </a>
+                            {{$item->start_time}}
                         </td>
                         <td>
                             @foreach($item->eventOrganizers as $organizer)
@@ -129,21 +128,22 @@
                             @endif
                         </td>
                         <td class="text-center">
-                            <a href="/admin/event/{{$item->shortlink}}/edit" class="btn btn-warning" title="ویرایش رویداد" >
+                            <a href="{{route('admin.event.edit',['event'=>$item->shortlink])}}" class="btn btn-warning btn-sm" title="ویرایش رویداد" >
                                 <i class="bi bi-pencil-square"></i>
                             </a>
                         </td>
                         <td class="text-center">
-                            <a href="/admin/event/{{$item->shortlink}}/users" class="btn btn-success" title="افراد شرکت کننده ها" >
+                            <a href="{{route('admin.event.participants',['event'=>$item->shortlink])}}" class="btn btn-success btn-sm" title="شرکت کننده ها" >
                                 <i class="bi bi-people-fill" ></i>
+                                {{$item->participants->count()}} نفر
                             </a>
                         </td>
 
                         <td class="text-center">
-                            <form method="post" action="/admin/event/{{$item->shortlink}}" onsubmit="return confirm('آیا از حذف رویداد مطمئن هستید؟');">
+                            <form method="post" action="{{route('admin.event.destroy',['event'=>$item->shortlink])}}" onsubmit="return confirm('آیا از حذف رویداد مطمئن هستید؟');">
                                 {{ method_field('DELETE') }}
                                 {{ csrf_field() }}
-                                <button  class="btn btn-danger" type="submit">
+                                <button  class="btn btn-danger btn-sm" type="submit">
                                     <i class="bi bi-trash-fill"></i>
                                 </button>
                             </form>

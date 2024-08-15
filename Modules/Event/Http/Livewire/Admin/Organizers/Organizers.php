@@ -81,4 +81,21 @@ class Organizers extends Component
             }
     }
 
+    public function changeStatus(EventOrganizer $eventOrganizer)
+    {
+
+        if($eventOrganizer->status==1)
+        {
+            $eventOrganizer->status=0;
+            $this->emit('toast','success','برگزارکننده '.$eventOrganizer->user->fname.' '.$eventOrganizer->user->lname  .' غیرفعال شد');
+        }
+        else
+        {
+            $eventOrganizer->status=1;
+            $this->emit('toast','success','برگزارکننده '.$eventOrganizer->user->fname.' '.$eventOrganizer->user->lname.' فعال شد');
+        }
+
+        $eventOrganizer->save();
+    }
+
 }
