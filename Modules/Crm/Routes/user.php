@@ -1,2 +1,2 @@
 <?php
-Route::get('/','PanelController@index');
+Route::get('/','PanelController@index')->name('home');

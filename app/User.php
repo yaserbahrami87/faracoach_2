@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Modules\Crm\Entities\CategoryGettingKnow;
 use Modules\Crm\Entities\Followup;
 use Modules\Crm\Entities\UserType;
@@ -128,6 +129,11 @@ class User extends Authenticatable
     public function ExamTakes()
     {
         return $this->hasMany(ExamTake::class);
+    }
+
+    public function is_employee()
+    {
+        return (Auth::user()->type ==2 || Auth::user()->type ==3 || Auth::user()->type==4 || Auth::user()->type==5|| Auth::user()->type==6 || Auth::user()->type==7);
     }
 
 }

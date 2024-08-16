@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use Modules\Clinic\Http\Middleware\AdminClinicAuthenticate;
 
 class Kernel extends HttpKernel
 {
@@ -60,6 +61,8 @@ class Kernel extends HttpKernel
         'auth.user' => \Modules\Crm\Http\Middleware\UserAuthenticate::class,
         'event.admin' => \Modules\Event\Http\Middleware\AdminEventAuthenticate::class,
         'event.user' => \Modules\Event\Http\Middleware\UserEventAuthenticate::class,
+        'clinic.admin'=>\Modules\Clinic\Http\Middleware\AdminClinicAuthenticate::class,
+        'clinic.admin'=>\Modules\Clinic\Http\Middleware\UserClinicAuthenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,

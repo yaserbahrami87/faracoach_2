@@ -115,6 +115,7 @@
                             @endforeach
                         </td>
                         <td>
+
                             <label class="switch">
                                 <input type="checkbox" title="{{$item->shortlink}}"  wire:change="changeStatus('{{$item->shortlink}}')" {{($item->status==1)?'checked':''}}  />
                                 <span class="slider round"></span>

@@ -36,6 +36,7 @@ class ProfileInvitationsModal extends ModalComponent
 
     public function render()
     {
+
         return view('crm::livewire.admin.users.profile-invitations-modal');
     }
 

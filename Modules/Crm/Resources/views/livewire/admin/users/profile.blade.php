@@ -185,11 +185,20 @@
                         <p class="m-0">تاریخ ثبت نام:
                             {{\App\Services\JalaliDate::changeTimestampToShamsi($User->created_at)}}
                         </p>
-                        <a href="" class="btn btn-primary  btn-block mb-3">تغییر رمز عبور</a>
-                        <form method="post" action="{{route('admin.user.loginWithUser',['User'=>$User])}}">
+
+                        <form class="d-inline-block" method="post" action="{{route('admin.user.loginWithUser',['User'=>$User])}}" onsubmit="return window.confirm('آیا از ورود با اکانت کاربر اطمینان دارید؟')">
                             {{csrf_field()}}
-                            <button type="submit" class="btn btn-primary btn-block mb-3">ورود با اکانت کاربر</button>
+                            <button type="submit" class="btn btn-outline-primary btn-sm"  data-toggle="tooltip" data-placement="top" title="ورود با اکانت کاربر">
+                                <i class="nav-icon material-icons">login</i>
+                            </button>
                         </form>
+
+                        <button class="btn btn-outline-warning btn-sm"
+                                data-toggle="tooltip" data-placement="top" title="تغییر رمز"
+                                wire:key="{{$User->id}}"
+                                wire:click="$emit('openModal', 'crm::admin.users.change-password',{{ json_encode(['user' => $User->id]) }})">
+                            <i class="nav-icon material-icons">key</i>
+                        </button>
 
 
                         <p>دوره های گذرانده / در حال برگزاری:</p>

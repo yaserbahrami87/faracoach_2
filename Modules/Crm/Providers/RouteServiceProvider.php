@@ -57,7 +57,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::middleware(['web','auth.user'])
             ->namespace($this->moduleNamespace)
-            ->name('user')
+            ->name('user.')
             ->prefix('panel')
             ->group(module_path('Crm', '/Routes/user.php'));
     }

@@ -34,7 +34,7 @@ class RouteServiceProvider extends ServiceProvider
     public function map()
     {
         $this->mapApiRoutes();
-
+        $this->mapAdminRoutes();
         $this->mapWebRoutes();
     }
 
@@ -65,5 +65,23 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('api')
             ->namespace($this->moduleNamespace)
             ->group(module_path('Clinic', '/Routes/api.php'));
+    }
+
+    protected function mapUserRoutes()
+    {
+        Route::middleware(['web','auth.user'])
+            ->namespace($this->moduleNamespace)
+            ->name('clinic.')
+            ->prefix('panel')
+            ->group(module_path('Clinic', '/Routes/user.php'));
+    }
+
+    protected function mapAdminRoutes()
+    {
+        Route::middleware(['web','clinic.admin'])
+            ->namespace($this->moduleNamespace."\Admin")
+            ->name('admin.clinic.')
+            ->prefix('f/clinic')
+            ->group(module_path('Clinic', '/Routes/admin.php'));
     }
 }

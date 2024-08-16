@@ -30,8 +30,8 @@
                          with font-awesome or any other icon font library -->
 
                     @foreach(Module::collections() as $module)
-                        @if(View::exists("{$module->getLowerName()}::admin.rightBar"))
-                            @include("{$module->getLowerName()}::admin.rightBar")
+                        @if(View::exists("{$module->getLowerName()}::user.rightBar"))
+                            @include("{$module->getLowerName()}::user.rightBar")
                         @endif
                     @endforeach
                     <li class="nav-item has-treeview menu-open">

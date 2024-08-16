@@ -269,7 +269,7 @@
 
                     <!-- Dropdown Item -->
                     <li class="px-3 py-2">
-                        <a class="dropdown-item d-flex align-items-center px-3 py-2 rounded-3" href="{{route('admin.dashboard')}}">
+                        <a class="dropdown-item d-flex align-items-center px-3 py-2 rounded-3" href="{{Auth::user()->is_employee()? route('admin.dashboard'):route('user.home')}}">
                             <i class="isax isax-category-2 text-primary fs-4 ms-2"></i>
                             <p class="mb-0 ms-5">داشبورد</p>
                             <!-- Hover Icon -->
