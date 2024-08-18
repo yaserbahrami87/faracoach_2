@@ -17,4 +17,6 @@ class CoachCategory extends Model
     {
         return \Modules\Clinic\Database\factories\CoachCategoryFactory::new();
     }
+
+
 }

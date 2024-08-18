@@ -87,6 +87,15 @@
 
         <!-- Main row -->
         <div class="row" >
+            @if($errors->any())
+                <div class="col-12">
+                    <div class="alert alert-danger" role="alert">
+                        @foreach($errors->all() as $error)
+                            <li>{{$error}}</li>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
 
             {{$slot}}
         </div>

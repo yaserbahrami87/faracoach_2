@@ -18,6 +18,11 @@ class ClinicCategory extends Model
         return \Modules\Clinic\Database\factories\ClinicCategoryFactory::new();
     }
 
+    public function getRouteKeyName()
+    {
+        return 'title';
+    }
+
     public function parent_category()
     {
         return $this->belongsTo(ClinicCategory::class,'parent_id','id');

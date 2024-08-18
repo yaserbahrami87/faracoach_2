@@ -1,0 +1,13 @@
+{
+    "name": "RequestPortal",
+    "alias": "requestportal",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\RequestPortal\\Providers\\RequestPortalServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

@@ -4,6 +4,7 @@ namespace Modules\Crm\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\Clinic\Entities\Coach;
 use Modules\Event\Entities\EventOrganizer;
 use Modules\Lms\Entities\Exam;
 use Modules\Lms\Entities\Student;
@@ -74,11 +75,5 @@ class User extends Model
     {
         return $this->hasMany(Student::class);
     }
-
-    public function organizers()
-    {
-        return $this->hasOne(EventOrganizer::class);
-    }
-
 
 }

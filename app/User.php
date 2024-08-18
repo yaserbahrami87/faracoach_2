@@ -6,15 +6,18 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
+use Modules\Clinic\Entities\Coach;
 use Modules\Crm\Entities\CategoryGettingKnow;
 use Modules\Crm\Entities\Followup;
 use Modules\Crm\Entities\UserType;
+use Modules\Event\Entities\EventOrganizer;
 use Modules\Lms\Entities\Exam;
 use Modules\Lms\Entities\ExamQuestion;
 use Modules\Lms\Entities\ExamResult;
 use Modules\Lms\Entities\ExamTake;
 use Modules\Lms\Entities\Student;
 use Modules\Lms\Entities\Teacher;
+use Modules\RequestPortal\Entities\RequestPortal;
 
 class User extends Authenticatable
 {
@@ -51,6 +54,18 @@ class User extends Authenticatable
     public function categoryGettingKnow()
     {
         return  $this->belongsTo(CategoryGettingKnow::class,'gettingknow','id');
+    }
+
+    public function completedProfile()
+    {
+        if(is_null($this->fname)&&is_null($this->lname)&&is_null($this->tel)&&is_null($this->email)&&is_null($this->tel)&&is_null($this->username)&&is_null($this->fname_en)&&is_null($this->lname_en)&&is_null($this->sex)&&is_null($this->datebirth)&&is_null($this->father)&&is_null($this->codemelli)&&is_null($this->shenasname)&&is_null($this->born)&&is_null($this->education)&&is_null($this->reshteh)&&is_null($this->job)&&is_null($this->address)&&is_null($this->personal_image)&&is_null($this->shenasnameh_image)&&is_null($this->cartmelli_image)&&is_null($this->education_image)&&is_null($this->married)&&is_null($this->telegram)&&is_null($this->instagram)&&is_null($this->state_id)&&is_null($this->city_id))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     //نمایش معرف
@@ -136,4 +151,18 @@ class User extends Authenticatable
         return (Auth::user()->type ==2 || Auth::user()->type ==3 || Auth::user()->type==4 || Auth::user()->type==5|| Auth::user()->type==6 || Auth::user()->type==7);
     }
 
+    public function organizers()
+    {
+        return $this->hasOne(EventOrganizer::class);
+    }
+
+    public function coach()
+    {
+        return $this->hasOne(Coach::class);
+    }
+
+    public function request_portals()
+    {
+        return $this->hasMany(RequestPortal::class);
+    }
 }

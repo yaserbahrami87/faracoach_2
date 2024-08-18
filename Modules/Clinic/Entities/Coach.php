@@ -38,4 +38,14 @@ class Coach extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function coachcategories()
+    {
+        return $this->belongsToMany(CoachCategory::class,'coach_coachcategory','coach_id','coachcategory_id');
+    }
+
+    public function cliniccategories()
+    {
+        return $this->belongsToMany(ClinicCategory::class,'cliniccategory_coach','coach_id','cliniccategory_id');
+    }
 }

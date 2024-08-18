@@ -6,5 +6,7 @@
     "Lms": true,
     "Migration": true,
     "ChangeForeignKey": true,
-    "Event": true
+    "Event": true,
+    "RequestPortal": true,
+    "Ticket": true
 }

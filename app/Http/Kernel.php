@@ -62,7 +62,7 @@ class Kernel extends HttpKernel
         'event.admin' => \Modules\Event\Http\Middleware\AdminEventAuthenticate::class,
         'event.user' => \Modules\Event\Http\Middleware\UserEventAuthenticate::class,
         'clinic.admin'=>\Modules\Clinic\Http\Middleware\AdminClinicAuthenticate::class,
-        'clinic.admin'=>\Modules\Clinic\Http\Middleware\UserClinicAuthenticate::class,
+        'clinic.user'=>\Modules\Clinic\Http\Middleware\UserClinicAuthenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,

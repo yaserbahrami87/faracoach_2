@@ -35,6 +35,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->mapApiRoutes();
         $this->mapAdminRoutes();
+        $this->mapUserRoutes();
         $this->mapWebRoutes();
     }
 
@@ -69,10 +70,10 @@ class RouteServiceProvider extends ServiceProvider
 
     protected function mapUserRoutes()
     {
-        Route::middleware(['web','auth.user'])
-            ->namespace($this->moduleNamespace)
-            ->name('clinic.')
-            ->prefix('panel')
+        Route::middleware(['web','clinic.user'])
+            ->namespace($this->moduleNamespace."\user")
+            ->name('user.clinic.')
+            ->prefix('panel/clinic')
             ->group(module_path('Clinic', '/Routes/user.php'));
     }
 
