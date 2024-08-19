@@ -8,7 +8,9 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Modules\Clinic\Entities\Coach;
 use Modules\Crm\Entities\CategoryGettingKnow;
+use Modules\Crm\Entities\City;
 use Modules\Crm\Entities\Followup;
+use Modules\Crm\Entities\State;
 use Modules\Crm\Entities\UserType;
 use Modules\Event\Entities\EventOrganizer;
 use Modules\Lms\Entities\Exam;
@@ -29,7 +31,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'fname','lname','tel','tel_verified', 'email', 'password','username','fname_en','lname_en','sex','datebirth','father','codemelli','shenasname','born','education','reshteh','job','organization','jobside','address','personal_image','shenasnameh_image','cartmelli_image','education_image','resume','married','type','resource','introduced','followby_expert','insert_user_id','telegram','instagram','linkedin','aboutme','last_login_at','gettingknow'
+        'fname','lname','tel','tel_verified', 'email', 'password','username','fname_en','lname_en','sex','datebirth','father','codemelli','shenasname','born','education','reshteh','job','organization','jobside','address','personal_image','shenasnameh_image','cartmelli_image','education_image','resume','married','type','resource','introduced','followby_expert','insert_user_id','telegram','instagram','linkedin','aboutme','last_login_at','gettingknow','city_id','state_id'
     ];
 
     /**
@@ -50,6 +52,20 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function getIntroduced()
+    {
+        return $this->belongsTo(User::class,'introduced','id');
+    }
+
+    public function state()
+    {
+        return $this->belongsTo(State::class);
+    }
+
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
 
     public function categoryGettingKnow()
     {
@@ -58,13 +74,13 @@ class User extends Authenticatable
 
     public function completedProfile()
     {
-        if(is_null($this->fname)&&is_null($this->lname)&&is_null($this->tel)&&is_null($this->email)&&is_null($this->tel)&&is_null($this->username)&&is_null($this->fname_en)&&is_null($this->lname_en)&&is_null($this->sex)&&is_null($this->datebirth)&&is_null($this->father)&&is_null($this->codemelli)&&is_null($this->shenasname)&&is_null($this->born)&&is_null($this->education)&&is_null($this->reshteh)&&is_null($this->job)&&is_null($this->address)&&is_null($this->personal_image)&&is_null($this->shenasnameh_image)&&is_null($this->cartmelli_image)&&is_null($this->education_image)&&is_null($this->married)&&is_null($this->telegram)&&is_null($this->instagram)&&is_null($this->state_id)&&is_null($this->city_id))
+        if(is_null($this->fname)&&is_null($this->lname)&&is_null($this->tel)&&is_null($this->email)&&is_null($this->username)&&is_null($this->fname_en)&&is_null($this->lname_en)&&is_null($this->sex)&&is_null($this->datebirth)&&is_null($this->father)&&is_null($this->codemelli)&&is_null($this->shenasname)&&is_null($this->born)&&is_null($this->education)&&is_null($this->reshteh)&&is_null($this->job)&&is_null($this->address)&&is_null($this->personal_image)&&is_null($this->shenasnameh_image)&&is_null($this->cartmelli_image)&&is_null($this->education_image)&&is_null($this->resume)&&is_null($this->married)&&is_null($this->telegram)&&is_null($this->instagram)&&is_null($this->state_id)&&is_null($this->city_id))
         {
-            return true;
+            return false;
         }
         else
         {
-            return false;
+            return true;
         }
     }
 

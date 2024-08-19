@@ -48,4 +48,6 @@ class Coach extends Model
     {
         return $this->belongsToMany(ClinicCategory::class,'cliniccategory_coach','coach_id','cliniccategory_id');
     }
+
+
 }

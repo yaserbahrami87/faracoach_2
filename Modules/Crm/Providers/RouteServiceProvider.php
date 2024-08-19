@@ -56,7 +56,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapUserRoutes()
     {
         Route::middleware(['web','auth.user'])
-            ->namespace($this->moduleNamespace)
+            ->namespace($this->moduleNamespace."\User")
             ->name('user.')
             ->prefix('panel')
             ->group(module_path('Crm', '/Routes/user.php'));

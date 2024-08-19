@@ -39,7 +39,7 @@ class CoachController extends Controller
         else
         {
             alert()->error('برای درخواست همکاری ابتدا اطلاعات پروفایل خود را تکمیل نمایید')->persistent('بستن');
-            return redirect('/');
+            return redirect()->route('user.profile.show');
         }
     }
 

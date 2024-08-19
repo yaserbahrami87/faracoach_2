@@ -18,11 +18,14 @@ class ClinicCategory extends Component
     public $tendencies;
     public $tendency;
 
+    protected $listeners=[
+        'render_category'=>'render',
+    ];
+
     protected function rules()
     {
         return
         [
-            //'services'      =>'required|numeric',
             'expertise'     =>'required|numeric',
             'tendencies'    =>'required|array',
             'service'       =>'required|numeric',
@@ -33,11 +36,12 @@ class ClinicCategory extends Component
 
     public function render()
     {
-        $this->dispatchBrowserEvent('plugins');
+
 
         $this->requestPortals=Auth::user()->request_portals->where('type','coach');
 
         $this->clinicCategories=\Modules\Clinic\Entities\ClinicCategory::get();
+        $this->dispatchBrowserEvent('plugins');
         return view('clinic::livewire.user.coach.clinic-category');
     }
 
@@ -61,7 +65,6 @@ class ClinicCategory extends Component
     {
 
         $this->validate();
-        //dd(Auth::user()->coach->cliniccategories->where('id',$this->tendency));
         if(is_null(Auth::user()->coach->cliniccategories->where('id',$this->tendency)->first()) )
         {
             $tmp=\Modules\Clinic\Entities\ClinicCategory::where('id',$this->tendency)
@@ -83,7 +86,8 @@ class ClinicCategory extends Component
             $this->tendency=NULL;
             $this->tendencies=NULL;
             $this->service=NULL;
-            $this->requestPortals=Auth::user()->request_portals->where('type','coach');
+            $this->emit('render_category');
+
 
         }
         else

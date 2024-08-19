@@ -83,10 +83,10 @@
             <th>وضعیت</th>
         </tr>
 
-        @foreach($requestPortals as $requestPortal)
+        @foreach($requestPortals as $item)
             <tr>
-                <td>{{$requestPortal->description}}</td>
-                <td>{{$requestPortal->status()}}</td>
+                <td>{{$item->description}}</td>
+                <td>{{$item->status()}}</td>
             </tr>
         @endforeach
 
