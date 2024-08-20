@@ -172,6 +172,12 @@ class User extends Authenticatable
         return $this->hasOne(EventOrganizer::class);
     }
 
+    public function is_coach()
+    {
+        return $this->hasOne(Coach::class)
+                            ->where('status',2);
+    }
+
     public function coach()
     {
         return $this->hasOne(Coach::class);

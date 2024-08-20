@@ -72,7 +72,7 @@ class CoachController extends Controller
 
         $coach->coachcategories()->attach($request->coachCategory);
         Auth::user()->request_portals()->create([
-            'type'          =>'coach',
+            'type'          =>'coach_request',
             'description'   =>'تکمیل فرم اولیه درخواست همکاری کوچ ',
             'date_fa'       =>JalaliDate::get_jalaliNow(),
             'time_fa'       =>JalaliDate::get_timeNow(),

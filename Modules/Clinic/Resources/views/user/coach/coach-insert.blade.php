@@ -1,4 +1,10 @@
 @component('masterView::user.master.index')
+    @slot('headerScript')
+        <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+        <!-- Alpine v3 -->
+        <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    @endslot
 
     <div class="col-12 col-md-6 card mx-auto">
         <div class="card-header">درخواست همکاری به عنوان کوچ</div>

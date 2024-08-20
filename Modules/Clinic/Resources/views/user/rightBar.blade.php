@@ -10,7 +10,7 @@
         <li class="nav-item">
             <a href="{{route('user.clinic.coach.create')}}" class="nav-link active">
                 <i class="fa fa-circle-o nav-icon"></i>
-                <p>همه کاربرها</p>
+                <p>درخواست همکاری</p>
             </a>
         </li>
         <li class="nav-item">

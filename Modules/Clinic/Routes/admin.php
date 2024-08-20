@@ -10,3 +10,4 @@ Route::namespace('\\Modules\\Clinic\\Http\\Livewire\\Admin\\')->group(function()
 
 Route::delete('/category/{ClinicCategory}','ClinicCategoryController@destroy')->name('category.destroy');
 
+Route::Patch('/coach/{requestPortal}/requestUpdate','CoachController@update')->name('coach.requestUpdate');

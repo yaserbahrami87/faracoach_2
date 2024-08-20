@@ -17,8 +17,12 @@ class UserClinicAuthenticate
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::user()->type !=2 ||  Auth::user()->type!=4 || Auth::user()->type!=5|| Auth::user()->type!=7) {
-            return $next($request);
+        if(Auth::check())
+        {
+            if (Auth::user()->type != 2 || Auth::user()->type != 4 || Auth::user()->type != 5 || Auth::user()->type != 7) {
+                return $next($request);
+            }
+            return redirect('/');
         }
         return redirect('/');
     }

@@ -38,7 +38,7 @@ class ClinicCategory extends Component
     {
 
 
-        $this->requestPortals=Auth::user()->request_portals->where('type','coach');
+        $this->requestPortals=Auth::user()->request_portals->wherein('type',['coach_request','coach_service_request']);
 
         $this->clinicCategories=\Modules\Clinic\Entities\ClinicCategory::get();
         $this->dispatchBrowserEvent('plugins');
@@ -70,14 +70,15 @@ class ClinicCategory extends Component
             $tmp=\Modules\Clinic\Entities\ClinicCategory::where('id',$this->tendency)
                                                 ->first();
 
-            Auth::user()->request_portals()->create([
-                'type'          =>'coach',
+            $request_portal=Auth::user()->request_portals()->create([
+                'type'          =>'coach_service_request',
                 'description'   =>'درخواست خدمات '.$tmp->title,
                 'date_fa'       =>JalaliDate::get_jalaliNow(),
                 'time_fa'       =>JalaliDate::get_timeNow(),
             ]);
 
-            Auth::user()->coach->cliniccategories()->attach([$this->tendency]);
+
+            Auth::user()->coach->cliniccategories()->attach([$this->tendency],['request_portal_id'=>$request_portal->id]);
 
 
             $this->emit('toast','success','درخواست خدمت با موفقیت ثبت شد');

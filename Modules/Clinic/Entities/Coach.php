@@ -46,7 +46,9 @@ class Coach extends Model
 
     public function cliniccategories()
     {
-        return $this->belongsToMany(ClinicCategory::class,'cliniccategory_coach','coach_id','cliniccategory_id');
+        return $this->belongsToMany(ClinicCategory::class,'cliniccategory_coach','coach_id','cliniccategory_id')
+                        ->withPivot('request_portal_id')
+                        ->withPivot('status');
     }
 
 

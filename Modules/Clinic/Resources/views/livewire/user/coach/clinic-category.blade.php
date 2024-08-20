@@ -74,19 +74,26 @@
 <div class="col-12 table-responsive">
     <table class="text-center table-bordered table table-striped">
         <tr  >
-            <th colspan="2">
+            <th colspan="3">
                 اقدامات انجام شده
             </th>
         </tr>
         <tr>
             <th>اقدام</th>
             <th>وضعیت</th>
+            <th>پیام ها</th>
         </tr>
 
         @foreach($requestPortals as $item)
             <tr>
                 <td>{{$item->description}}</td>
                 <td>{{$item->status()}}</td>
+                <td>
+
+                    <button class="btn btn-success" wire:key="{{$item->id}}" onclick="Livewire.emit('openModal', 'clinic::user.coach.ticket-modal',{{ json_encode(['User' => $item->user_id,'RequestPortal'=>$item->id]) }})">
+                        <span class="badge badge-pill badge-danger">{{$item->ticketsCoach->where('status',1)->count()}}
+                    </button>
+                </td>
             </tr>
         @endforeach
 
@@ -99,6 +106,15 @@
     window.addEventListener('plugins',()=>
     {
         let head = document.getElementsByTagName('HEAD')[0];
+
+        let link1 = document.createElement('link');
+        link1.rel = 'stylesheet';
+        link1.href = '/dashboard/dist/css/tailwind.min.css';
+        head.appendChild(link1);
+
+        let link2 = document.createElement('script');
+        link2.src = '/dashboard/dist/js/cdn.min.js';
+        head.appendChild(link2);
 
         let link3 = document.createElement('link');
         link3.rel = 'stylesheet';

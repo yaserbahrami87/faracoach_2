@@ -21,16 +21,17 @@ class CreateTicketsTable extends Migration
             $table->text('comment')->nullable();
             $table->unsignedBigInteger('user_id_recieve')->nullable();
             $table->foreign('user_id_recieve')->on('users')->references('id')->onDelete('cascade');
-            $table->unsignedBigInteger('message_id_answer')->nullable();
+            $table->unsignedBigInteger('ticket_id_answer')->nullable();
             $table->string('date_fa',11)->nullable();
             $table->string('time_fa',10)->nullable();
             $table->string('type',200)->nullable();
+            $table->unsignedBigInteger('post_id')->nullable();
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
         });
 
         Schema::table('tickets', function (Blueprint $table) {
-            $table->foreign('message_id_answer')->on('tickets')->references('id')->onDelete('cascade');
+            $table->foreign('ticket_id_answer')->on('tickets')->references('id')->onDelete('cascade');
         });
 
 
