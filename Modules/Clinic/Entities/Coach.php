@@ -51,5 +51,10 @@ class Coach extends Model
                         ->withPivot('status');
     }
 
+    public function coachSettings()
+    {
+        return $this->hasMany(CoachSetting::class);
+    }
+
 
 }

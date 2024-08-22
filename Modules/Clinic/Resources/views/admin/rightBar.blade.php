@@ -19,5 +19,11 @@
                 <p>دسته بندی ها</p>
             </a>
         </li>
+        <li class="nav-item">
+            <a href="{{route('admin.clinic.coach.setting')}}" class="nav-link">
+                <i class="fa fa-circle-o nav-icon"></i>
+                <p>تنظیمات کلینیک</p>
+            </a>
+        </li>
     </ul>
 </li>

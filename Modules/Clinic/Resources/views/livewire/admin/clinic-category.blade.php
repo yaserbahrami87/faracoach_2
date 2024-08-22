@@ -13,7 +13,7 @@
     <div class="card-body table-responsive">
         <button class="btn btn-outline-primary btn-sm"
                 wire:click="$emit('openModal', 'clinic::admin.clinic-category-insert',{{ json_encode(['user' => Auth::user()->id]) }})">
-            افزودن دسته<i class="nav-icon material-icons">add</i>
+            افزودن تخصص<i class="nav-icon material-icons">add</i>
         </button>
         <table class="table">
             <tr>

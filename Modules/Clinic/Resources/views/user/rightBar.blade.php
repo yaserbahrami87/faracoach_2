@@ -13,17 +13,14 @@
                 <p>درخواست همکاری</p>
             </a>
         </li>
-        <li class="nav-item">
-            <a href="{{route('admin.user.insert')}}" class="nav-link">
-                <i class="fa fa-circle-o nav-icon"></i>
-                <p>اضافه کردن کاربر</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{route('admin.user.excelCreate')}}" class="nav-link">
-                <i class="fa fa-circle-o nav-icon"></i>
-                <p>اضافه کردن از طریق اکسل</p>
-            </a>
-        </li>
+        @if(Auth::user()->is_coach)
+            <li class="nav-item">
+                <a href="{{route('user.clinic.coach.setting')}}" class="nav-link">
+                    <i class="fa fa-circle-o nav-icon"></i>
+                    <p>تنظیمات جلسه</p>
+                </a>
+            </li>
+
+        @endif
     </ul>
 </li>

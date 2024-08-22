@@ -1,6 +1,6 @@
 <div class="p-3">
     <div class="card  card-primary">
-        <div class="card-header">افزودن دسته</div>
+        <div class="card-header">افزودن تخصص</div>
         <div class="card-body">
             <form method="post" wire:submit.prevent="addCategory">
                 <div class="form-row">
