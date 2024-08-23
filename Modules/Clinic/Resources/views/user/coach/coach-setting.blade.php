@@ -12,7 +12,7 @@
                         $test=NULL;
                     @endphp
                     @foreach(Auth::user()->request_portals->where('status',2)->where('type','coach_service_request') as $item )
-                        @if($item->clinicCategoriesRequestPortal->first()->parent_category->parent_category->where('title','مشاوره')->first())
+                        @if($item->clinicCategoriesRequestPortal->first()->parent_category->parent_category->where('title','خدمات')->first())
                             @if(!$counseling)
                                 <div class="form-group col-md-12">
                                     <label for="counseling_fi">قیمت هر جلسه مشاوره: <span class="text-danger">*</span></label>
@@ -27,7 +27,7 @@
                         @if($item->clinicCategoriesRequestPortal->first()->parent_category->parent_category->where('title','آزمون')->first())
                             @if(!$test)
                                 <div class="form-group col-md-12">
-                                    <label for="test_fi">قیمت هر آزمون: <span class="text-danger">*</span></label>
+                                    <label for="test_fi">قیمت هر خدمات: <span class="text-danger">*</span></label>
                                     <input type="number" class="form-control" id="test_fi" name="test_fi" value="{{!is_null($settings_coaching->where('setting','test_fi')->first())?$settings_coaching->where('setting','test_fi')->first()->value:'' }}" />
                                     <small>قیمت به تومان می باشد</small>
                                 </div>

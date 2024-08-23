@@ -88,6 +88,17 @@ class CoachSettingController extends Controller
             ]);
         }
 
+        if(!is_null($request->coaching_duration_time))
+        {
+            $status=$settings=setting::updateOrInsert([
+                'setting' =>'coaching_duration_time',
+
+            ],[
+                'value'   =>$request->coaching_duration_time,
+            ]);
+        }
+
+
         if(!is_null($status))
         {
             alert()->success('تنظیمات با موفقیت بروزرسانی شد');

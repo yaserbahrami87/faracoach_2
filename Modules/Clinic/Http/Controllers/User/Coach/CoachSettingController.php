@@ -11,6 +11,18 @@ use Modules\Crm\Entities\Setting;
 
 class CoachSettingController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            if (Auth::user()->is_coach) {
+                return $next($request);
+            } else {
+                alert()->warning('شما اجازه دسترسی به این صفحه را ندارید');
+                return back();
+            }
+        });
+    }
+
     /**
      * Display a listing of the resource.
      * @return Renderable

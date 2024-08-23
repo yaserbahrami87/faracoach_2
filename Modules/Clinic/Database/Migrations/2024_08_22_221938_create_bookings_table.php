@@ -19,7 +19,9 @@ class CreateBookingsTable extends Migration
             $table->foreign('coach_id')->on('coaches')->references('id')->onDelete('cascade');
             $table->string('start_date',10)->nullable();
             $table->string('start_time',5)->nullable();
-            $table->tinyInteger('status')->default(1);
+            $table->string('end_date',10)->nullable();
+            $table->string('end_time',5)->nullable();
+            $table->tinyInteger('status')->default(0);
             $table->string('date_fa',10)->nullable();
             $table->string('time_fa',8)->nullable();
             $table->timestamps();

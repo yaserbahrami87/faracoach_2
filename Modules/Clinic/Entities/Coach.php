@@ -56,5 +56,10 @@ class Coach extends Model
         return $this->hasMany(CoachSetting::class);
     }
 
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
+    }
+
 
 }
