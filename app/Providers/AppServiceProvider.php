@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Services\JalaliDate;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Modules\Crm\Entities\Setting;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,6 +26,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $settings=Setting::get();
+        View::share('settings', $settings);
     }
 }

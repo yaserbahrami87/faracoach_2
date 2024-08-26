@@ -1,6 +1,5 @@
-@extends('master.index')
+@component('master.index')
 
-@section('content')
 
 
 <section class="single-course-welcome mb-6" style="background-image: url('/images/single_course/welcome-background.jpg');">
@@ -11,8 +10,7 @@
             <!-- Coach -->
             <div class="col-12 col-xl-6 position-relative text-center text-xl-start">
 
-                <h2 class="text-light text-xl-end fw-bold position-relative mt-5 mt-xl-0">مدرس ناهید زمانی </h2>
-                <p class="text-light text-xl-end mb-xl-n5 position-relative">کارشناسی ارشد مدیریت منابع انسانی</p>
+
                 <img src="/images/single_course/welcome-image.png" class="img-fluid mt-xl-n5" alt="">
 
                 <!-- Icons -->
@@ -30,7 +28,7 @@
 
                     <div class="text-center text-light">
                         <img src="/images/single_course/welcome-icon-02.svg" class="mb-3" alt="">
-                        <p>{{$course->duraton}} ساعت آموزش</p>
+                        <p>{{$course->duration}} ساعت آموزش</p>
                     </div>
 
                 </div>
@@ -44,7 +42,7 @@
                         <p class="card-text lh-lg">شایستگی را در استفاده از انواع رفتارها و مهارت‌ها در کار خود با مراجعان نشان داده‌اند.</p>
                         <a href="#!" data-bs-toggle="modal" data-bs-target="#welcomeCourseModal">
                             <div class="single-course-welcome__course__video position-relative">
-                                <img src="/images/single_course/welcome-course-video.png" alt="" class="img-fluid">
+                                <img src="{{$course->image}}" alt="" class="img-fluid">
                                 <img src="/images/main/video-circle.svg" alt="" class="single-course-welcome__course__video__icon">
                             </div>
                         </a>
@@ -93,30 +91,16 @@
                         <img src="images/single_course/aside-icon-07.svg" alt="">
                         <h2 class="d-inline-block me-3 fw-bold">توضیحات دوره</h2>
                     </div>
-                    <p class="text-70">{!! $course->infocourse !!}</p>
-                    <p class="text-70">(برنامه آموزشی فراکوچ برپایه این موارد است)</p>
-                    <ul>
-                        <li>آگاهی، فهم، شناخت</li>
-                        <li>نگرش، مشاهده دقیق</li>
-                        <li>                                تکنیک، مهارت، قابلیت، انسانیت، ویژگی‌های خوب انسانی، رادمردی</li>
-                    </ul>
-                    <ul>
-                        <li>آگاهی، فهم، شناخت</li>
-                        <li>نگرش، مشاهده دقیق</li>
-                        <li>                                تکنیک، مهارت، قابلیت، انسانیت، ویژگی‌های خوب انسانی، رادمردی</li>
-                    </ul>
-                    <p>مزایای ویژه دوره تربیت کوچ سطح ۱ آکادمی بین المللی فراکوچ :</p>
+
                 </section>
 
                 <!-- Course Description -->
                 <section class="mb-6">
-                    <h5 class="fw-bold mt-5 mb-4">دوره کوچینگ سطح یک</h5>
+                    <h5 class="fw-bold mt-5 mb-4">{{$course->course}}</h5>
                     <div class="fade-show-more">
                         <div class="collapse" id="descriptionCollapse">
                             <div class="fade-show-more__overlay"></div>
-                            <p>
-                                دارندگان مدرک تحصیلی کوچینگ حرفه‌ای (PCC) با بیش از 125 ساعت آموزش و تجربه بیش از 500 ساعت حضور در جلسات کوچینگ به‌عنوان کوچ و شرکت و قبولی در آزمون CKA این مدرک را از  فدراسیون بین المللی کوچینگ ICF ، دریافت می‌کنند. این افراد دانش و کاربرد هنرمندانه شایستگی و صلاحیت‌های اصلی ICF، منشور اخلاقی و تعریف کوچینگ را در جلسات خود نشان داده‌اند. این کوچ‌های حرفه‌ای همچنین تعهد به استانداردهای اخلاقی بالا را در مایندست و روند جلسات خود جاری ساخته و از طریق ارزیابی دقیق، شایستگی را در استفاده از انواع رفتارها و مهارت‌ها در کار خود با مراجعان نشان داده‌اند. کوچ‌های سطح یک آکادمی بین المللی فراکوچ پس از تکمیل آموزش‌های 60 ساعته خود و دریافت مدرک پایان دوره، این امکان را خواهند داشت تا در این دوره تکمیلی شرکت کنندکوچینگ حرفه‌ای چیزی فراتر از پیروی از صلاحیت‌های مورد تأیید ICF، دنبال کردن یک مدل و انجام یک فرایند است. کوچ حرفه‌ای لازم است که سؤالات قدرتمندتر بپرسد، در سطحی عمیق‌تر و شهودی گوش دهد، ایجاد یک رابطه مشارکتی و قابل‌اعتماد با مراجع را در سطحی پیشرفته و حرفه‌ای محقق سازد و درنهایت برای شرکت در آزمون CKA و دریافت مدرک PCC آماده شده و در این مسیر موفق ظاهر شود. هر کوچ حرفه‌ای برای داشتن جلسات مفیدتر و به عبارتی جلسات عمیق‌تر، بهتر است دانش مقدماتی در حوزه روانشناسی و شناخت اختلالات و دیگر مباحث روانشناسی داشته باشد؛ چه‌بسا که این اطلاعات و دانش روانشناسی می‌تواند در روند جلسات مؤثر و لازم باشد.
-                            </p>
+                            {!! $course->infocourse !!}
                         </div>
                         <a class="position-relative d-block text-center text-decoration-none" data-bs-toggle="collapse" href="#descriptionCollapse" role="button" aria-expanded="false" aria-controls="descriptionCollapse">
                             <span class="hide">نمایش ادامه توضیحات</span>
@@ -127,7 +111,7 @@
                     </div>
                 </section>
 
-                <!-- Course Headings -->
+                <!-- Course Headings
                 <section class="mb-6">
                     <div class="d-flex align-items-center mb-4">
                         <img src="images/single_course/main-icon-04.svg" alt="">
@@ -208,7 +192,7 @@
                     </div>
 
                 </section>
-
+                -->
                 <!-- Course Coaches -->
                 <section class="mb-6">
 
@@ -224,7 +208,8 @@
 
                                 <a href="" class="course-coache__link d-inline-block mb-4">
                                     <div class="course-coache__top d-inline-block">
-                                        <img src="images/users/nahid zamani.jpg" alt="" class="course-coache__top__img rounded-circle" width="200px" height="200px">
+
+                                        <img src="/documents/users/{{$teacher->user->personal_image}}" alt="" class="course-coache__top__img rounded-circle" width="200px" height="200px">
                                         <!--
                                         <div class="course-coache__top__overlay text-light d-flex flex-column align-items-center justify-content-center ">
                                             <p class="fw-bold">۱،۰۰۰،۰۰۰ تومان</p>
@@ -244,7 +229,7 @@
 
                 </section>
 
-                <!-- Course Features -->
+                <!-- Course Features
                 <section class="mb-6">
                     <div class="d-flex align-items-center mb-4">
                         <img src="images/single_course/main-icon-06.svg" alt="">
@@ -282,8 +267,8 @@
                         </div>
                     </div>
                 </section>
-
-                <!-- Students Testimonials -->
+                -->
+                <!-- Students Testimonials
                 <section class="mb-6">
                     <div class="d-flex align-items-center mb-4">
                         <img src="images/single_course/main-icon-07.svg" alt="">
@@ -293,9 +278,9 @@
 
                     <div class="studentstestimonials row mt-5 position-relative">
 
-                        <!-- Carousel main container -->
+
                         <div class="studentstestimonials-carousel swiper">
-                            <!-- Additional required wrapper -->
+
                             <div class="swiper-wrapper">
 
                                 <div class="swiper-slide">
@@ -372,14 +357,14 @@
                             </div>
                         </div>
 
-                        <!-- Add Navigation -->
+
                         <span class="studentstestimonials__next-btn fs-4 d-none d-xl-block">
                                 <i class="isax isax-arrow-left-2 bg-d9 text-9f p-2 fw-bold rounded-circle"></i>
                             </span>
 
                     </div>
 
-                    <!-- Video Modal 0 -->
+
                     <div class="modal fade" id="videomodal0Modal" tabindex="-1" aria-labelledby="videomodal0ModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-lg">
                             <div class="modal-content">
@@ -399,7 +384,7 @@
                         </div>
                     </div>
 
-                    <!-- Video Modal 1 -->
+
                     <div class="modal fade" id="videomodal1Modal" tabindex="-1" aria-labelledby="videomodal1ModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-lg">
                             <div class="modal-content">
@@ -419,7 +404,7 @@
                         </div>
                     </div>
 
-                    <!-- Video Modal 2 -->
+
                     <div class="modal fade" id="videomodal2Modal" tabindex="-1" aria-labelledby="videomodal2ModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-lg">
                             <div class="modal-content">
@@ -439,7 +424,7 @@
                         </div>
                     </div>
 
-                    <!-- Video Modal 3 -->
+
                     <div class="modal fade" id="videomodal3Modal" tabindex="-1" aria-labelledby="videomodal3ModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-lg">
                             <div class="modal-content">
@@ -459,7 +444,7 @@
                         </div>
                     </div>
 
-                    <!-- Video Modal 4 -->
+
                     <div class="modal fade" id="videomodal4Modal" tabindex="-1" aria-labelledby="videomodal4ModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-lg">
                             <div class="modal-content">
@@ -479,7 +464,7 @@
                         </div>
                     </div>
 
-                    <!-- Video Modal 5 -->
+
                     <div class="modal fade" id="videomodal5Modal" tabindex="-1" aria-labelledby="videomodal5ModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-lg">
                             <div class="modal-content">
@@ -499,7 +484,7 @@
                         </div>
                     </div>
 
-                    <!-- Video Modal 6 -->
+
                     <div class="modal fade" id="videomodal6Modal" tabindex="-1" aria-labelledby="videomodal6ModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-lg">
                             <div class="modal-content">
@@ -519,7 +504,7 @@
                         </div>
                     </div>
 
-                    <!-- Video Modal 7 -->
+
                     <div class="modal fade" id="videomodal7Modal" tabindex="-1" aria-labelledby="videomodal7ModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-lg">
                             <div class="modal-content">
@@ -540,7 +525,7 @@
                     </div>
 
                 </section>
-
+                -->
             </main>
 
             <!--Aside-->
@@ -550,7 +535,7 @@
                 <div class="card bg-f8 border-0 rounded-3 mb-5">
                     <div class="card-body p-4">
                         <img src="images/single_course/aside-icon-01.svg" class="ms-2" alt="">
-                        <h5 class="card-title d-inline-block fw-bold">دوره کوچینگ سطح یک</h5>
+                        <h5 class="card-title d-inline-block fw-bold">{{$course->course}}</h5>
                         <ul class="list-group mt-4 p-0">
 
                             <li class="list-group-item border-0 rounded-1 py-3 d-flex align-items-center mb-4">
@@ -577,20 +562,24 @@
 
                         </ul>
                         <form action="">
+                            @if($course->type_peymant_id==1||$course->type_peymant_id==3)
 
-                            <div class="form-check d-inline-block ms-5 py-4">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                <label class="form-check-label" for="flexRadioDefault1">
-                                    نقدی
-                                </label>
-                            </div>
+                                <div class="form-check d-inline-block ms-5 py-4">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        نقدی
+                                    </label>
+                                </div>
+                            @endif
 
-                            <div class="form-check d-inline-block py-4">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                                <label class="form-check-label" for="flexRadioDefault2">
-                                    اقساطی
-                                </label>
-                            </div>
+                            @if($course->type_peymant_id==2||$course->type_peymant_id==3)
+                                <div class="form-check d-inline-block py-4">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" >
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        اقساطی
+                                    </label>
+                                </div>
+                            @endif
 
                             <div class="price fw-bold text-secondary fs-3 mb-4">{{number_format($course->fi_off)}} تومان</div>
 
@@ -605,9 +594,10 @@
                         <img src="images/single_course/aside-icon-06.svg" class="ms-2" alt="">
                         <h5 class="card-title d-inline-block fw-bold mb-4">مشاوره بگیر</h5>
 
-                        <form action="">
-                            <input type="name" class="form-control py-3 mb-4 border-0 rounded-3" id="name" placeholder="نام و نام خانوادگی">
-                            <input type="phone" class="form-control py-3 mb-4 border-0 rounded-3" id="phone" placeholder="شماره همراه">
+                        <form method="post" action="">
+                            <input type="name" class="form-control py-3 mb-4 border-0 rounded-3" id="fname" name="fname" placeholder="نام">
+                            <input type="name" class="form-control py-3 mb-4 border-0 rounded-3" id="lname" name="lname" placeholder="نام خانوادگی">
+                            <input type="phone" class="form-control py-3 mb-4 border-0 rounded-3" id="tel" name="tel" placeholder="شماره همراه">
                             <button type="submit" class="btn btn-primary d-block w-100 py-3 fw-bold rounded-3">ثبت اطلاعات</button>
                         </form>
                     </div>
@@ -619,5 +609,5 @@
 
     </div>
 </section>
-@endsection
+@endcomponent
 

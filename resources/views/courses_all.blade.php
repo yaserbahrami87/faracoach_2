@@ -1,6 +1,4 @@
-@extends('master.index')
-
-@section('content')
+@component('master.index')
     <!-- Hero
     ================================================== -->
     <section class="list-of-courses-welcome mb-5 py-5 py-xl-0" style="background-image: url('images/list_of_courses/special-offers-background.png')">
@@ -23,7 +21,7 @@
                     <div class="special-offres__carousel swiper">
                         <div class="swiper-wrapper">
                             <!-- Slide -->
-                            @foreach($courses as $course)
+                            @foreach($courses->whereNotNull('fi_off') as $course)
                                 <div class="swiper-slide">
 
                                     <div class="row g-0 justify-content-center justify-content-xl-center">
@@ -33,7 +31,7 @@
                                             <div data-date="April 10, 2023 21:14:01" class="clockdiv">
                                                 <span class="days"></span> : <span class="hours"></span> : <span class="minutes"></span> : <span class="seconds"></span>
                                             </div>
-                                            <img src="{{'/documents/'.$course->image}}" alt="" width="250px">
+                                            <img src="{{$course->image}}" alt="" width="250px" height="250px">
                                         </div>
 
                                         <!-- Price & Info -->
@@ -61,40 +59,7 @@
                             @endforeach
 
                             <!-- Slide -->
-                            <div class="swiper-slide">
 
-                                <div class="row g-0 justify-content-center justify-content-xl-center">
-
-                                    <!-- Image & Countdown -->
-                                    <div class="col-auto position-relative me-xl-auto">
-                                        <div data-date="April 10, 2023 21:14:01" class="clockdiv">
-                                            <span class="days"></span> : <span class="hours"></span> : <span class="minutes"></span> : <span class="seconds"></span>
-                                        </div>
-                                        <img src="/images/main/course-1681985274.jpg" alt="" width="250px">
-                                    </div>
-
-                                    <!-- Price & Info -->
-                                    <div class="special-offres__info col-12 col-sm-6 text-center text-sm-end">
-
-                                        <!-- Top Title -->
-                                        <ul class="m-0 pe-3 text-warning mb-4">
-                                            <li>
-                                                <span>پیشنهاد ویژه</span>
-                                                <img src="images/list_of_courses/discount-shape.svg" alt="">
-                                            </li>
-                                        </ul>
-
-                                        <!-- Title -->
-                                        <h4 class="fw-bold lh-lg mb-4">دوره سطح یک 83</h4>
-
-                                        <!-- Price -->
-                                        <div class="fs-4 fw-bold text-warning mb-3">20,000,000 تومان</div>
-                                        <div class="fs-4 fw-bold text-9f mb-3 text-decoration-line-through">39,000,000 تومان</div>
-
-                                    </div>
-                                </div>
-
-                            </div>
 
                         </div>
                     </div>
@@ -174,10 +139,10 @@
             <div class="d-flex flex-wrap align-items-center mb-3 lh-lg">
                 <i class="isax isax-sort fs-3 ms-3"></i>
                 <span class="ms-3">مرتب سازی: </span>
-                <a href="{{route('courses')}}" class="ms-3 text-decoration-none text-70"> در حال ثبت نام </a>
-                <a href="?type=performing" class="ms-3 text-decoration-none text-70"> در حال برگذاری </a>
-                <a href="#!" class="ms-3 text-decoration-none text-70"> پیشنهاد های ویژه </a>
-                <a href="#!" class="ms-3 text-decoration-none text-70"> برگذار شده </a>
+                <a href="{{route('course.all')}}" class="ms-3 text-decoration-none text-70"> در حال ثبت نام </a>
+                <a href="{{route('course.all',['type'=>'performing'])}}" class="ms-3 text-decoration-none text-70"> در حال برگذاری </a>
+                <a href="{{route('course.all',['type'=>'special'])}}" class="ms-3 text-decoration-none text-70"> پیشنهاد های ویژه </a>
+                <a href="{{route('course.all',['type'=>'held'])}}" class="ms-3 text-decoration-none text-70"> برگذار شده </a>
             </div>
 
             <hr class="mb-5">
@@ -186,13 +151,13 @@
             <div class="row mb-5">
                 @foreach($courses as $course)
                     <div class="courseItem col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
-                        <a href="{{route('course.show',['Course'=>$course])}}" class="text-decoration-none text-reset courseItem__link">
+                        <a href="{{route('course.show',['course'=>$course])}}" class="text-decoration-none text-reset courseItem__link">
                             <div class="card border-0 bg-f8">
 
                                 <!-- Image -->
                                 <div class="courseItem__top mb-3">
 
-                                    <img src="{{'/documents/'.$course->image}}" class="img-fluid card-img-top courseItem__img" alt="" style="height: 180px !important;">
+                                    <img src="{{$course->image}}" class="img-fluid card-img-top courseItem__img" alt="" style="height: 180px !important;">
 
                                     <div class="courseItem__overlay rounded text-light d-flex flex-column align-items-center justify-content-center ">
                                         <p class="mb-5">{{$course->course}}</p>
@@ -534,7 +499,7 @@
 
     </section>
 
-@endsection
+@endcomponent
 
 
 

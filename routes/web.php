@@ -13,12 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'IndexController@index');
-Route::get('/courses', 'CourseController@index')->name('courses');
-Route::get('/course/{Course}', 'CourseController@show')->name('course.show');
+Route::get('/', 'IndexController@index')->name('home');
+
+
+//Route::get('/courses', 'CourseController@index')->name('courses');
+//Route::get('/course/{Course}', 'CourseController@show')->name('course.show');
 
 
 Auth::routes();
 
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+

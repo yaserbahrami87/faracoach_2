@@ -16,7 +16,13 @@ Route::prefix('User')->group(function()
     Route::post('/excel','UserController@storeExcel')->name('user.excelStore');
 });
 
+//Setting
+Route::prefix('setting')->group(function ()
+{
+    Route::get('/','Setting\\SettingController@index')->name('setting.all');
+    Route::patch('/','Setting\\SettingController@update')->name('setting.update');
 
+});
 
 //Route::resource('User','UserController');
 

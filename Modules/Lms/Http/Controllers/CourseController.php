@@ -2,9 +2,11 @@
 
 namespace Modules\Lms\Http\Controllers;
 
+use App\Services\JalaliDate;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Lms\Entities\Course;
 
 class CourseController extends Controller
 {
@@ -12,9 +14,37 @@ class CourseController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('lms::index');
+        if($request->has('type') && $request->type=='performing')
+        {
+
+            $courses= Course::where('start','<=',JalaliDate::get_jalaliNow())
+                ->orderby('id','desc')
+                ->get();
+        }
+        elseif($request->has('type') && $request->type=='held')
+        {
+
+            $courses= Course::where('end','<',JalaliDate::get_jalaliNow())
+                ->orderby('id','desc')
+                ->get();
+        }
+        elseif ($request->has('type') && $request->type=='special')
+        {
+            $courses=Course::where('start','>=',JalaliDate::get_jalaliNow())
+                                        ->whereNotNull('fi_off')
+                                        ->orderby('id','desc')
+                                        ->get();
+        }
+        else
+        {
+            $courses=Course::where('start','>=',JalaliDate::get_jalaliNow())
+                            ->orderby('id','desc')
+                            ->get();
+        }
+        return view('courses_all')
+                        ->with('courses',$courses);
     }
 
     /**
@@ -41,9 +71,11 @@ class CourseController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function show($id)
+    public function show(Course $course)
     {
-        return view('lms::show');
+
+        return view('course_single')
+                    ->with('course',$course);
     }
 
     /**

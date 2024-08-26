@@ -11,6 +11,7 @@
 |
 */
 
-Route::prefix('lms')->group(function() {
-    Route::get('/', 'LmsController@index');
+Route::prefix('course')->name('course.')->group(function() {
+    Route::get('/all', 'CourseController@index')->name('all');
+    Route::get('/{course}', 'CourseController@show')->name('show');
 });

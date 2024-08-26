@@ -18,82 +18,82 @@
                     <!-- Nav Item With Dropdown -->
                     <li class="nav-item ms-4">
 
-                        <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">دوره‌های آموزشی</a>
+                        <a class="nav-link text-dark" href="{{route('course.all')}}"    >دوره‌های آموزشی</a>
 
-                        <!-- Dropdown -->
+                       <!--
                         <ul class="dropdown-menu mt-3 border-0 bg-fa" aria-labelledby="navbarDropdown1" style="left:auto">
 
-                            <!-- Dropdown Item-->
+
                             <li class="px-3 py-2">
                                 <a class="dropdown-item d-flex align-items-center p-3 rounded-3" href="#">
 
-                                    <!-- Image -->
+
                                     <img src="images/header/header01.png" alt="" class="ms-3" width="67">
 
-                                    <!-- Title -->
+
                                     <div class="text-end">
                                         <p class="small mb-1 fw-bold hover-margin">دوره‌های استادی</p>
                                         <small class="text-ae d-none d-sm-inline" style="font-size: 14px">برای مشاهده دوره‌های استادی کلیک کنید</small>
                                     </div>
 
-                                    <!-- Hover Icon -->
+
                                     <i class="isax isax-arrow-left-2 bg-lp text-primary p-1 me-auto me-sm-5 rounded-circle invisible"></i>
 
                                 </a>
                             </li>
 
-                            <!-- Dropdown Item -->
+
                             <li class="px-3 py-2">
                                 <a class="dropdown-item d-flex align-items-center p-3 rounded-3" href="#">
 
-                                    <!-- Image -->
+
                                     <img src="images/header/header02.png" alt="" class="ms-3" width="67">
 
-                                    <!-- Title -->
+
                                     <div class="text-end">
                                         <p class="small mb-1 fw-bold hover-margin">دوره‌های سطح یک</p>
                                         <small class="text-ae d-none d-sm-inline" style="font-size: 14px">برای مشاهده دوره‌های استادی کلیک کنید</small>
                                     </div>
 
-                                    <!-- Hover Icon -->
+
                                     <i class="isax isax-arrow-left-2 bg-lp text-primary p-1 me-auto me-sm-5 rounded-circle invisible"></i>
 
                                 </a>
                             </li>
 
-                            <!-- Dropdown Item -->
+
                             <li class="px-3 py-2">
                                 <a class="dropdown-item d-flex align-items-center p-3 rounded-3" href="#">
 
-                                    <!-- Image -->
+
                                     <img src="images/header/header03.png" alt="" class="ms-3" width="67">
 
-                                    <!-- Title -->
+
                                     <div class="text-end">
                                         <p class="small mb-1 fw-bold hover-margin">دوره‌های سطح دو</p>
                                         <small class="text-ae d-none d-sm-inline" style="font-size: 14px">برای مشاهده دوره‌های استادی کلیک کنید</small>
                                     </div>
 
-                                    <!-- Hover Icon -->
+
                                     <i class="isax isax-arrow-left-2 bg-lp text-primary p-1 me-auto me-sm-5 rounded-circle invisible"></i>
 
                                 </a>
                             </li>
 
-                            <!-- Dropdown Item -->
+
                             <li class="px-3 py-2">
                                 <a class="dropdown-item d-flex align-items-center p-3 rounded-3" href="#">
 
-                                    <!-- Image -->
+
                                     <img src="images/header/header04.png" alt="" class="ms-3" width="67">
 
-                                    <!-- Title -->
+
                                     <div class="text-end">
                                         <p class="small mb-1 fw-bold hover-margin">دوره‌های توسعه فردی</p>
                                         <small class="text-ae d-none d-sm-inline" style="font-size: 14px">برای مشاهده دوره‌های استادی کلیک کنید</small>
                                     </div>
 
-                                    <!-- Hover Icon -->
+
                                     <i class="isax isax-arrow-left-2 bg-lp text-primary p-1 me-auto me-sm-5 rounded-circle invisible"></i>
 
                                 </a>
@@ -101,58 +101,58 @@
 
                             <li><hr class="dropdown-divider mx-4"></li>
 
-                            <!-- Dropdown Item -->
+
                             <li class="px-3 py-2">
 
-                                <!-- Title -->
+
                                 <a class="dropdown-item small d-flex align-items-center text-end p-3 rounded-3" href="#">
 
                                     <i class="isax isax-personalcard fs-4 ms-3 text-c6 to-primary"></i>
 
                                     مشاهده تمام دوره‌های کوچینگ
 
-                                    <!-- Hover Icon -->
+
                                     <i class="isax isax-arrow-left-2 bg-lp text-primary p-1 me-auto rounded-circle invisible"></i>
 
                                 </a>
                             </li>
 
                         </ul>
-
+                        -->
                     </li>
 
                     <!-- Nav Item With Dropdown -->
                     <li class="nav-item ms-4">
 
-                        <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">کلینیک</a>
+                        <a class="nav-link  text-dark" href="{{route('clinic.coaches')}}" id="navbarDropdown2"  >کلینیک</a>
 
-                        <!-- Dropdown -->
+                        <!-- Dropdown
                         <ul class="dropdown-menu mt-3 border-0 bg-fa" aria-labelledby="navbarDropdown2" style="left:auto;">
 
-                            <!-- Dropdown Item-->
+
                             <li class="px-3 py-2">
                                 <a class="dropdown-item d-flex align-items-center px-3 py-2 rounded-3" href="#">
 
                                     <i class="isax isax-profile-2user fs-4 ms-3 text-secondary"></i>
                                     <p class="small mb-1 ms-5">جلسات فردی</p>
 
-                                    <!-- Hover Icon -->
+
                                     <i class="isax isax-arrow-left-2 bg-lp text-primary p-1 me-auto rounded-circle invisible"></i>
                                 </a>
                             </li>
 
-                            <!-- Dropdown Item-->
+
                             <li class="px-3 py-2">
                                 <a class="dropdown-item d-flex align-items-center px-3 py-2 rounded-3" href="#">
                                     <i class="isax isax-buildings-2 fs-4 ms-3 text-secondary"></i>
                                     <p class="small mb-1 ms-5">جلسات سازمانی</p>
-                                    <!-- Hover Icon -->
+
                                     <i class="isax isax-arrow-left-2 bg-lp text-primary p-1 me-auto rounded-circle invisible"></i>
                                 </a>
                             </li>
 
                         </ul>
-
+                        -->
                     </li>
 
                     <!-- Nav Item -->

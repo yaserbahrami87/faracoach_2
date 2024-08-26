@@ -11,6 +11,7 @@
 |
 */
 
-Route::prefix('event')->group(function() {
-    Route::get('/', 'EventController@index');
+Route::prefix('event')->name('event.')->group(function() {
+    Route::get('/all', 'EventController@index')->name('all');
+    Route::get('/{Event}', 'EventController@show')->name('show');
 });

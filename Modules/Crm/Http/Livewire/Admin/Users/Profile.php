@@ -43,7 +43,7 @@ class Profile extends Component
               'User.codemelli'      =>'nullable|numeric|unique:Users,codemelli,'.$this->User->id,
               'User.datebirth'      =>'nullable|date_format:Y/m/d|max:11',
               'User.shenasname'     =>'nullable|numeric',
-              'User.username'       =>'nullable|string|unique:users,username',
+              'User.username'       =>'nullable|string|unique:users,username'.$this->user->id,
               'User.tel'            =>'required|unique:users,tel,'.$this->User->id,
               'User.email'          =>'nullable|email|unique:users,email,'.$this->User->id,
               'User.state_id'       =>'nullable|numeric',

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Services\JalaliDate;
 use Illuminate\Http\Request;
+use Modules\Clinic\Entities\Coach;
+use Modules\Event\Entities\Event;
 use Modules\Lms\Entities\Course;
 use Modules\Lms\Entities\Student;
 
@@ -21,8 +23,18 @@ class IndexController extends Controller
         $courses=Course::where('start','>=',JalaliDate::get_jalaliNow())
                                 ->orderby('id','desc')
                                 ->get();
+
+        $coaches=Coach::where('status',2)
+                        ->get();
+
+        $events=Event::where('expire_date','>=',JalaliDate::get_jalaliNow())
+                                ->orderby('id','desc')
+                                ->get();
+
         return view('index')
                     ->with('courses',$courses)
+                    ->with('coaches',$coaches)
+                    ->with('events',$events)
                     ->with('students',$students);
     }
 

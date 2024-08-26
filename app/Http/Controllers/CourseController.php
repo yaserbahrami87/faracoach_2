@@ -16,21 +16,10 @@ class CourseController extends Controller
      */
     public function index(Request $request)
     {
-        if($request->has('type') && $request->type=='performing')
-        {
-
-            $courses= Course::where('start','<=',JalaliDate::get_jalaliNow())
-                ->get();
-        }
-        else
-        {
-            $courses=Course::where('start','>=',JalaliDate::get_jalaliNow())
-                ->get();
-        }
 
 
-        return view('courses_all')
-            ->with('courses',$courses);
+
+        //return view('courses_all');
     }
 
     /**
@@ -62,7 +51,6 @@ class CourseController extends Controller
      */
     public function show(Course $Course)
     {
-
         return view('course_single')
                     ->with('course',$Course);
     }

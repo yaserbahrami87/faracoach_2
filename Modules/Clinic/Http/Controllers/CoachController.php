@@ -2,9 +2,12 @@
 
 namespace Modules\Clinic\Http\Controllers;
 
+use App\User;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Clinic\Entities\Coach;
+use Modules\Clinic\Entities\CoachCategory;
 
 class CoachController extends Controller
 {
@@ -14,7 +17,8 @@ class CoachController extends Controller
      */
     public function index()
     {
-        return view('clinic::index');
+
+        return view('coaches');
     }
 
     /**
@@ -41,9 +45,20 @@ class CoachController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function show($id)
+    public function show( $User)
     {
-        return view('clinic::show');
+        $user=User::where('username',$User)
+                ->first();
+        if($user->coach)
+        {
+            return view('coach_single');
+        }
+        else
+        {
+            alert()->error('خطا در پیدا کردن کوچ مورد نظر');
+            return back();
+        }
+
     }
 
     /**

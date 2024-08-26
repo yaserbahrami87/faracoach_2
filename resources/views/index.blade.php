@@ -1,6 +1,5 @@
-@extends('master.index')
+@component('master.index')
 
-@section('content')
 
     <!-- Hero -->
     <section class="main-welcome py-5 text-light" style="background: url('images/main/header-background.jpg');">
@@ -148,7 +147,7 @@
                 <!-- Link -->
                 <div class="col-12 col-md-4 text-md-start">
                     <div class="showmore d-inline-flex align-items-center">
-                        <a href="{{route('courses')}}" class="text-decoration-none text-primary showmore__link">مشاهده همه</a>
+                        <a href="{{route('course.all')}}" class="text-decoration-none text-primary showmore__link">مشاهده همه</a>
                         <i class="isax isax-arrow-left text-primary fs-5 showmore__icon"></i>
                     </div>
                 </div>
@@ -164,7 +163,7 @@
                         <!-- Slide -->
                         @foreach($courses as $course)
                             <div class="swiper-slide">
-                                <a href="{{route('course.show',['Course'=>$course])}}" class="text-decoration-none text-reset courses-carousel__link">
+                                <a href="{{route('course.show',['course'=>$course])}}" class="text-decoration-none text-reset courses-carousel__link">
                                     <div class="card bg-f8 border-0" >
                                         <!-- Image -->
                                         <div class="courses-carousel__top mb-3">
@@ -277,13 +276,13 @@
                 <div class="col-12 col-md-8">
                     <img src="images/main/coaches-carousel-icon.svg" alt="">
                     <h2 class="d-inline-block fw-bold me-2 text-41 mb-0 section-title">کلینیک کوچینگ</h2>
-                    <p class="mt-4">به راحتی میتونی بین همه کوچ های حرفه ای وقت جلسه کوچینگ رزور کنی همراه با جلسه معارفه رایگان</p>
+                    <p class="mt-4">به راحتی میتونی بین همه کوچ های حرفه ای وقت جلسه کوچینگ رزور کنی </p>
                 </div>
 
                 <!-- Link -->
                 <div class="col-12 col-md-4 text-md-start">
                     <div class="showmore d-inline-flex align-items-center">
-                        <a href="#" class="text-decoration-none text-primary showmore__link">مشاهده همه</a>
+                        <a href="{{route('clinic.coaches') }}" class="text-decoration-none text-primary showmore__link">مشاهده همه</a>
                         <i class="isax isax-arrow-left text-primary fs-5 showmore__icon"></i>
                     </div>
                 </div>
@@ -297,106 +296,43 @@
 
                     <!-- Additional required wrapper -->
                     <div class="swiper-wrapper">
-
-                        <!-- Slide -->
-                        <div class="swiper-slide">
-                            <div class="card bg-f8 border-0">
-                                <div class="card-body p-4">
-                                    <header class="d-flex align-items-center mb-5">
-                                        <img src="images/main/coach-profile.png" class="img-fluid ms-3" alt="">
-                                        <div class="title">
-                                            <h5 class="card-title fw-bold mb-4 d-inline-block" style="color:#414141">محمد اسماعیلی</h5>
-                                            <img src="images/main/verify-icon.svg" alt="">
-                                            <h6 class="card-subtitle mb-2 text-ae">دانشجو کارشناسی روانشناسی</h6>
-                                        </div>
-                                    </header>
-                                    <p class="card-text mb-5 text-ae">من به عنوان یک شریک و همراه در فکر کردن، کنار تو هستم تا افکار و باورهایی که مانع از رسیدن</p>
-                                    <footer class="d-flex justify-content-between align-items-center">
-                                        <a href="#" class="btn btn-primary">مشاهده پروفایل</a>
-                                        <div class="d-inline-block">
-                                            <img src="images/main/medal.svg" alt="">
-                                            <span>امتیاز: </span>
-                                            <span class="text-secondary">۶ از ۱۰</span>
-                                        </div>
-                                    </footer>
+                        @foreach($coaches as $coach)
+                            <!-- Slide -->
+                            <div class="swiper-slide">
+                                <div class="card bg-f8 border-0">
+                                    <div class="card-body p-4">
+                                        <header class="d-flex align-items-center mb-5">
+                                            @if(is_null($coach->user->personal_image))
+                                                <img src="/images/users/default-avatar.png" class="img-fluid ms-3 rounded-circle" alt="" width="72px" height="72px">
+                                            @else
+                                                <img src="/documents/users/{{$coach->user->personal_image}}" class="img-fluid ms-3 rounded-circle" width="72px" height="72px">
+                                            @endif
+                                            <div class="title">
+                                                <h5 class="card-title fw-bold mb-4 d-inline-block" style="color:#414141">{{$coach->user->fname.' '.$coach->user->lname}}</h5>
+                                                @if($coach->confirm_faracoach)
+                                                    <img src="images/main/verify-icon.svg" alt="">
+                                                @endif
+                                                <h6 class="card-subtitle mb-2 text-ae">{{$coach->user->job}}</h6>
+                                            </div>
+                                        </header>
+                                        <!--
+                                        <p class="card-text mb-5 text-ae">من به عنوان یک شریک و همراه در فکر کردن، کنار تو هستم تا افکار و باورهایی که مانع از رسیدن</p>
+                                        -->
+                                        <footer class="d-flex justify-content-between align-items-center">
+                                            <a href="{{route('clinic.coach.show',['User'=>$coach->user->username])}}" class="btn btn-primary">مشاهده پروفایل</a>
+                                            <div class="d-inline-block">
+                                                <!--
+                                                <img src="images/main/medal.svg" alt="">
+                                                <span>امتیاز: </span>
+                                                <span class="text-secondary">۶ از ۱۰</span>
+                                                -->
+                                            </div>
+                                        </footer>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        @endforeach
 
-                        <!-- Slide -->
-                        <div class="swiper-slide">
-                            <div class="card bg-f8 border-0">
-                                <div class="card-body p-4">
-                                    <header class="d-flex align-items-center mb-5">
-                                        <img src="images/main/coach-profile.png" class="img-fluid ms-3" alt="">
-                                        <div class="title">
-                                            <h5 class="card-title fw-bold mb-4 d-inline-block" style="color:#414141">محمد اسماعیلی</h5>
-                                            <img src="images/main/verify-icon.svg" alt="">
-                                            <h6 class="card-subtitle mb-2 text-ae">دانشجو کارشناسی روانشناسی</h6>
-                                        </div>
-                                    </header>
-                                    <p class="card-text mb-5 text-ae">من به عنوان یک شریک و همراه در فکر کردن، کنار تو هستم تا افکار و باورهایی که مانع از رسیدن</p>
-                                    <footer class="d-flex justify-content-between align-items-center">
-                                        <a href="#" class="btn btn-primary">مشاهده پروفایل</a>
-                                        <div class="d-inline-block">
-                                            <img src="images/main/medal.svg" alt="">
-                                            <span>امتیاز: </span>
-                                            <span class="text-secondary">۶ از ۱۰</span>
-                                        </div>
-                                    </footer>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Slide -->
-                        <div class="swiper-slide">
-                            <div class="card bg-f8 border-0">
-                                <div class="card-body p-4">
-                                    <header class="d-flex align-items-center mb-5">
-                                        <img src="images/main/coach-profile.png" class="img-fluid ms-3" alt="">
-                                        <div class="title">
-                                            <h5 class="card-title fw-bold mb-4 d-inline-block" style="color:#414141">محمد اسماعیلی</h5>
-                                            <img src="images/main/verify-icon.svg" alt="">
-                                            <h6 class="card-subtitle mb-2 text-ae">دانشجو کارشناسی روانشناسی</h6>
-                                        </div>
-                                    </header>
-                                    <p class="card-text mb-5 text-ae">من به عنوان یک شریک و همراه در فکر کردن، کنار تو هستم تا افکار و باورهایی که مانع از رسیدن</p>
-                                    <footer class="d-flex justify-content-between align-items-center">
-                                        <a href="#" class="btn btn-primary">مشاهده پروفایل</a>
-                                        <div class="d-inline-block">
-                                            <img src="images/main/medal.svg" alt="">
-                                            <span>امتیاز: </span>
-                                            <span class="text-secondary">۶ از ۱۰</span>
-                                        </div>
-                                    </footer>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Slide -->
-                        <div class="swiper-slide">
-                            <div class="card bg-f8 border-0">
-                                <div class="card-body p-4">
-                                    <header class="d-flex align-items-center mb-5">
-                                        <img src="images/main/coach-profile.png" class="img-fluid ms-3" alt="">
-                                        <div class="title">
-                                            <h5 class="card-title fw-bold mb-4 d-inline-block" style="color:#414141">محمد اسماعیلی</h5>
-                                            <img src="images/main/verify-icon.svg" alt="">
-                                            <h6 class="card-subtitle mb-2 text-ae">دانشجو کارشناسی روانشناسی</h6>
-                                        </div>
-                                    </header>
-                                    <p class="card-text mb-5 text-ae">من به عنوان یک شریک و همراه در فکر کردن، کنار تو هستم تا افکار و باورهایی که مانع از رسیدن</p>
-                                    <footer class="d-flex justify-content-between align-items-center">
-                                        <a href="#" class="btn btn-primary">مشاهده پروفایل</a>
-                                        <div class="d-inline-block">
-                                            <img src="images/main/medal.svg" alt="">
-                                            <span>امتیاز: </span>
-                                            <span class="text-secondary">۶ از ۱۰</span>
-                                        </div>
-                                    </footer>
-                                </div>
-                            </div>
-                        </div>
 
                     </div>
 
@@ -424,81 +360,48 @@
                     <!-- Additional required wrapper -->
                     <div class="swiper-wrapper">
 
-                        <!-- Slide -->
-                        <div class="swiper-slide px-4">
-                            <div class="row px-2 py-4 px-md-5 py-md-5 bg-primary rounded-3">
+                        @foreach($events as $event)
+                            <!-- Slide -->
+                            <div class="swiper-slide px-4">
+                                <div class="row px-2 py-4 px-md-5 py-md-5 bg-primary rounded-3">
 
-                                <div class="col-lg-4 col-xxl-3 text-light text-center ps-lg-5 d-flex flex-column align-items-center justify-content-between">
-                                    <div data-date="April 10, 2023 21:14:01" class="clockdiv counter mb-4 text-warning border border-2 rounded border-warning fs-3 fw-bold py-4 py-2 w-100" dir="ltr">
-                                        <span class="days"></span>
-                                        :
-                                        <span class="hours"></span>
-                                        :
-                                        <span class="minutes"></span>
-                                        :
-                                        <span class="seconds"></span>
+                                    <div class="col-lg-4 col-xxl-3 text-light text-center ps-lg-5 d-flex flex-column align-items-center justify-content-between">
+                                        <div data-date="April 10, 2023 21:14:01" class="clockdiv counter mb-4 text-warning border border-2 rounded border-warning fs-3 fw-bold py-4 py-2 w-100" dir="ltr">
+                                            <span class="days"></span>
+                                            :
+                                            <span class="hours"></span>
+                                            :
+                                            <span class="minutes"></span>
+                                            :
+                                            <span class="seconds"></span>
+                                        </div>
+                                        <h2 class="fw-bold mb-4 ">رویـــــــــــــــــــــــــــــداد هــــــــای فراکـــــــوچ</h2>
+                                        <a href="{{route('event.show',['Event'=>$event->shortlink])}}" class="btn btn-warning text-light w-100 py-2 mb-4 mb-lg-0">ثبت نام در رویداد</a>
                                     </div>
-                                    <h2 class="fw-bold mb-4 ">رویـــــــــــــــــــــــــــــداد هـــــــــای ویـــــــــــژه</h2>
-                                    <a href="" class="btn btn-warning text-light w-100 py-2 mb-4 mb-lg-0">ثبت نام در رویداد</a>
-                                </div>
 
-                                <div class="col-lg-8 col-xxl-9 bg-light p-0 rounded-3 d-flex">
+                                    <div class="col-lg-8 col-xxl-9 bg-light p-0 rounded-3 d-flex">
 
-                                    <!-- Image -->
-                                    <img src="images/main/special-events.png" class="d-none d-xxl-inline" alt="">
+                                        <!-- Image -->
+                                        <img src="{{$event->image}}" class="d-none d-xxl-inline" alt="">
 
-                                    <div class="content p-4">
-                                        <img src="images/main/ticket-icon.svg" alt="">
-                                        <h2 class="fw-bold mb-5 d-inline-block mt-4">رویداد کوچینگ در کسب و کار</h2>
-                                        <p class="mb-5 text-41 lh-lg">از معضلات همیشگی و دامن‌گیر دیزاینرها و استارتاپ‌ها تا سازمان‌های بزرگ، تعریف نکردن و نفهمیدن دقیق مشکله و چالش‌ها از اونجایی شروع می‌شه که ما با کوهی از داده‌ها و راهکارهای احتمالی طرفیم.</p>
-                                        <span class="fs-5 ms-3 mb-4 d-inline-block text-41"><i class="isax isax-user ms-1 text-primary fw-bold fs-4"></i> دکتر یاسر متحدین</span>
-                                        <span class="fs-5 ms-3 mb-4 d-inline-block text-41"><i class="isax isax-clock ms-1 text-primary fw-bold fs-4"></i> پنج شنبه - 1401/06/26</span>
-                                        <br>
-                                        <span class="fs-5 ms-3 mb-4 d-inline-block text-41"><i class="isax isax-people ms-1 text-primary fw-bold fs-4"></i> ظرفیت 100 نفر</span>
-                                        <span class="fs-5 ms-3 mb-4 d-inline-block text-41"><i class="isax isax-location ms-1 text-warning fw-bold fs-4"></i> سالن کنفرانس کارخانه نوآوری</span>
+                                        <div class="content p-4">
+                                            <img src="images/main/ticket-icon.svg" alt="">
+                                            <h2 class="fw-bold mb-5 d-inline-block mt-4">{{$event->event}}</h2>
+                                            <p class="mb-5 text-41 lh-lg">{{$event->description}}</p>
+                                            @foreach($event->eventOrganizers as $organizer)
+
+                                                <span class="fs-5 ms-3 mb-4 d-inline-block text-41"><i class="isax isax-user ms-1 text-primary fw-bold fs-4"></i> {{$organizer->user->fname.' '.$organizer->user->lname}}</span>
+                                            @endforeach
+                                            <span class="fs-5 ms-3 mb-4 d-inline-block text-41"><i class="isax isax-clock ms-1 text-primary fw-bold fs-4"></i> {{$event->start_time}} - {{$event->start_date}}</span>
+                                            <br>
+                                            <span class="fs-5 ms-3 mb-4 d-inline-block text-41"><i class="isax isax-people ms-1 text-primary fw-bold fs-4"></i> ظرفیت {{$event->capacity}} نفر</span>
+
+                                        </div>
                                     </div>
-                                </div>
 
+                                </div>
                             </div>
-                        </div>
-
-                        <!-- Slide -->
-                        <div class="swiper-slide px-4">
-                            <div class="row px-2 py-4 px-md-5 py-md-5 bg-primary rounded-3">
-
-                                <div class="col-lg-4 col-xxl-3 text-light text-center ps-lg-5 d-flex flex-column align-items-center justify-content-between">
-                                    <div data-date="April 28, 2023 21:14:01" class="clockdiv counter mb-4 text-warning border border-2 rounded border-warning fs-3 fw-bold py-4 py-2 w-100" dir="ltr">
-                                        <span class="days"></span>
-                                        :
-                                        <span class="hours"></span>
-                                        :
-                                        <span class="minutes"></span>
-                                        :
-                                        <span class="seconds"></span>
-                                    </div>
-                                    <h2 class="fw-bold mb-4 ">رویـــــــــــــــــــــــــــــداد هـــــــــای ویـــــــــــژه</h2>
-                                    <a href="" class="btn btn-warning text-light w-100 py-2 mb-4 mb-lg-0">ثبت نام در رویداد</a>
-                                </div>
-
-                                <div class="col-lg-8 col-xxl-9 bg-light p-0 rounded-3 d-flex">
-
-                                    <!-- Image -->
-                                    <img src="images/main/special-events.png" class="d-none d-xxl-inline" alt="">
-
-                                    <div class="content p-4">
-                                        <img src="images/main/ticket-icon.svg" alt="">
-                                        <h2 class="fw-bold mb-5 d-inline-block mt-4">رویداد کوچینگ در کسب و کار</h2>
-                                        <p class="mb-5 text-41 lh-lg">از معضلات همیشگی و دامن‌گیر دیزاینرها و استارتاپ‌ها تا سازمان‌های بزرگ، تعریف نکردن و نفهمیدن دقیق مشکله و چالش‌ها از اونجایی شروع می‌شه که ما با کوهی از داده‌ها و راهکارهای احتمالی طرفیم.</p>
-                                        <span class="fs-5 ms-3 mb-4 d-inline-block text-41"><i class="isax isax-user ms-1 text-primary fw-bold fs-4"></i> دکتر یاسر متحدین</span>
-                                        <span class="fs-5 ms-3 mb-4 d-inline-block text-41"><i class="isax isax-clock ms-1 text-primary fw-bold fs-4"></i> پنج شنبه - 1401/06/26</span>
-                                        <br>
-                                        <span class="fs-5 ms-3 mb-4 d-inline-block text-41"><i class="isax isax-people ms-1 text-primary fw-bold fs-4"></i> ظرفیت 100 نفر</span>
-                                        <span class="fs-5 ms-3 mb-4 d-inline-block text-41"><i class="isax isax-location ms-1 text-warning fw-bold fs-4"></i> سالن کنفرانس کارخانه نوآوری</span>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
+                        @endforeach
 
                     </div>
 
@@ -786,6 +689,7 @@
 
     <!-- COACHES VIDEOS
     ================================================== -->
+
     <section class="mb-4">
 
         <!-- Slider -->
@@ -1036,18 +940,18 @@
 
     </section>
 
-    <!-- TESTIMONIALS
-    ================================================== -->
+
+
     <section class="mb-6">
         <div class="container-fluid">
 
             <div class="row position-relative">
-                <!-- Carousel main container -->
+
                 <div class="testimonial-carousel swiper">
-                    <!-- Additional required wrapper -->
+
                     <div class="swiper-wrapper">
 
-                        <!-- Slide -->
+
                         <div class="swiper-slide">
                             <div class="testimonial-carousel__card card border-0 p-2s bg-f8">
                                 <div class="card-body p-0">
@@ -1059,7 +963,7 @@
                             </div>
                         </div>
 
-                        <!-- Slide -->
+
                         <div class="swiper-slide">
                             <div class="testimonial-carousel__card card border-0 p-2s bg-f8">
                                 <div class="card-body p-0">
@@ -1071,7 +975,7 @@
                             </div>
                         </div>
 
-                        <!-- Slide -->
+
                         <div class="swiper-slide">
                             <div class="testimonial-carousel__card card border-0 p-2s bg-f8">
                                 <div class="card-body p-0">
@@ -1083,7 +987,7 @@
                             </div>
                         </div>
 
-                        <!-- Slide -->
+
                         <div class="swiper-slide">
                             <div class="testimonial-carousel__card card border-0 p-2s bg-f8">
                                 <div class="card-body p-0">
@@ -1095,7 +999,7 @@
                             </div>
                         </div>
 
-                        <!-- Slide -->
+
                         <div class="swiper-slide">
                             <div class="testimonial-carousel__card card border-0 p-2s bg-f8">
                                 <div class="card-body p-0">
@@ -1107,7 +1011,7 @@
                             </div>
                         </div>
 
-                        <!-- Slide -->
+
                         <div class="swiper-slide">
                             <div class="testimonial-carousel__card card border-0 p-2s bg-f8">
                                 <div class="card-body p-0">
@@ -1119,7 +1023,7 @@
                             </div>
                         </div>
 
-                        <!-- Slide -->
+
                         <div class="swiper-slide">
                             <div class="testimonial-carousel__card card border-0 p-2s bg-f8">
                                 <div class="card-body p-0">
@@ -1131,7 +1035,7 @@
                             </div>
                         </div>
 
-                        <!-- Slide -->
+
                         <div class="swiper-slide">
                             <div class="testimonial-carousel__card card border-0 p-2s bg-f8">
                                 <div class="card-body p-0">
@@ -1143,7 +1047,7 @@
                             </div>
                         </div>
 
-                        <!-- Slide -->
+
                         <div class="swiper-slide">
                             <div class="testimonial-carousel__card card border-0 p-2s bg-f8">
                                 <div class="card-body p-0">
@@ -1155,7 +1059,7 @@
                             </div>
                         </div>
 
-                        <!-- Slide -->
+
                         <div class="swiper-slide">
                             <div class="testimonial-carousel__card card border-0 p-2s bg-f8">
                                 <div class="card-body p-0">
@@ -1167,7 +1071,7 @@
                             </div>
                         </div>
 
-                        <!-- Slide -->
+
                         <div class="swiper-slide">
                             <div class="testimonial-carousel__card card border-0 p-2s bg-f8">
                                 <div class="card-body p-0">
@@ -1185,6 +1089,8 @@
 
         </div>
     </section>
+
+
 
     <!-- FAQ
     ================================================== -->
@@ -1285,7 +1191,7 @@
 
         </div>
     </section>
-@endsection
 
 
+@endcomponent
 

@@ -27,3 +27,13 @@
         </li>
     </ul>
 </li>
+
+<li class="nav-item">
+    <a href="{{route('admin.setting.all')}}" class="nav-link">
+        <i class="nav-icon material-icons">settings</i>
+        <p>
+            تنظیمات سایت
+            <i class="right fa fa-angle-left"></i>
+        </p>
+    </a>
+</li>
