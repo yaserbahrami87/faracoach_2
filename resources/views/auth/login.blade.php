@@ -1,6 +1,4 @@
-@extends('master.index')
-
-@section('content')
+@component('master.index')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8 pt-5 pb-5">
@@ -8,10 +6,6 @@
         </div>
     </div>
 </div>
-
-
-
-
-@endsection
+@endcomponent
 
 
