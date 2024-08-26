@@ -11,12 +11,12 @@ use Modules\Crm\Entities\CategoryGettingKnow;
 use Modules\Crm\Entities\City;
 use Modules\Crm\Entities\Setting;
 use Modules\Crm\Entities\State;
-use Modules\Crm\Entities\User;
+use App\User;
 
 class Profile extends Component
 {
     use WithFileUploads;
-    public $User;
+    public $user;
     public $tabChange;
     public $states;
     public $cities=[];
@@ -32,47 +32,47 @@ class Profile extends Component
     protected function rules()
     {
         return[
-              'User.fname'          =>'nullable|persian_alpha|max:200',
-              'User.lname'          =>'nullable|persian_alpha|max:200',
-              'User.personal_image' =>'nullable|image|max:1024',
-              'User.shenasnameh_image' =>'nullable|image|max:1024',
-              'User.education_image'=>'nullable|image|max:1024',
-              'User.cartmelli_image'=>'nullable|image|max:1024',
-              'User.resume'         =>'nullable|mimes:jpeg,jpg,pdf,png,bmp|max:1024',
-              'User.sex'            =>'nullable|boolean',
-              'User.codemelli'      =>'nullable|numeric|unique:Users,codemelli,'.$this->User->id,
-              'User.datebirth'      =>'nullable|date_format:Y/m/d|max:11',
-              'User.shenasname'     =>'nullable|numeric',
-              'User.username'       =>'nullable|string|unique:users,username'.$this->user->id,
-              'User.tel'            =>'required|unique:users,tel,'.$this->User->id,
-              'User.email'          =>'nullable|email|unique:users,email,'.$this->User->id,
-              'User.state_id'       =>'nullable|numeric',
-              'User.city_id'        =>'nullable|numeric',
-              'User.address'        =>'nullable|string|max:200',
-              'User.instagram'      =>'nullable|string|max:200|',
-              'User.telegram'       =>'nullable|string|max:200|',
-              'User.linkedin'       =>'nullable|string|max:200|',
-              'User.father'         =>'nullable|persian_alpha|max:200|',
-              'User.married'        =>'nullable|boolean',
-              'User.born'           =>'nullable|string|max:200|',
-              'User.education'      =>'nullable|in:دیپلم,فوق دیپلم,لیسانس,فوق لیسانس,دکتری و بالاتر,زیردیپلم|',
-              'User.reshteh'        =>'nullable|string|',
-              'User.job'            =>'nullable|string|',
-              'User.gettingknow'    =>'nullable|numeric',
-              'User.introduced'     =>'nullable|numeric',
-              'introduced'          =>'nullable|numeric',
+            'User.fname'          =>'nullable|persian_alpha|max:200',
+            'User.lname'          =>'nullable|persian_alpha|max:200',
+            'User.personal_image' =>'nullable|image|max:1024',
+            'User.shenasnameh_image' =>'nullable|image|max:1024',
+            'User.education_image'=>'nullable|image|max:1024',
+            'User.cartmelli_image'=>'nullable|image|max:1024',
+            'User.resume'         =>'nullable|mimes:jpeg,jpg,pdf,png,bmp|max:1024',
+            'User.sex'            =>'nullable|boolean',
+            'User.codemelli'      =>'nullable|numeric|unique:Users,codemelli,'.$this->user->id,
+            'User.datebirth'      =>'nullable|date_format:Y/m/d|max:11',
+            'User.shenasname'     =>'nullable|numeric',
+            'User.username'       =>'nullable|string|unique:users,username'.$this->user->id,
+            'User.tel'            =>'required|unique:users,tel,'.$this->user->id,
+            'User.email'          =>'nullable|email|unique:users,email,'.$this->user->id,
+            'User.state_id'       =>'nullable|numeric',
+            'User.city_id'        =>'nullable|numeric',
+            'User.address'        =>'nullable|string|max:200',
+            'User.instagram'      =>'nullable|string|max:200|',
+            'User.telegram'       =>'nullable|string|max:200|',
+            'User.linkedin'       =>'nullable|string|max:200|',
+            'User.father'         =>'nullable|persian_alpha|max:200|',
+            'User.married'        =>'nullable|boolean',
+            'User.born'           =>'nullable|string|max:200|',
+            'User.education'      =>'nullable|in:دیپلم,فوق دیپلم,لیسانس,فوق لیسانس,دکتری و بالاتر,زیردیپلم|',
+            'User.reshteh'        =>'nullable|string|',
+            'User.job'            =>'nullable|string|',
+            'User.gettingknow'    =>'nullable|numeric',
+            'User.introduced'     =>'nullable|numeric',
+            'introduced'          =>'nullable|numeric',
         ];
     }
 
     public function mount(User $User)
     {
 
-        $this->User=$User;
+        $this->user=$User;
 
 
-        if(!is_null($this->User->gettingknow))
+        if(!is_null($this->user->gettingknow))
         {
-            $this->gettingKnowParent=$this->User->categoryGettingKnow->categoryGettingKnow_parent->id;
+            $this->gettingKnowParent=$this->user->categoryGettingKnow->categoryGettingKnow_parent->id;
         }
         else
         {
@@ -80,9 +80,9 @@ class Profile extends Component
             $this->gettingKnowParent=NULL;
         }
 
-        if(!is_null($this->User->introduced))
+        if(!is_null($this->user->introduced))
         {
-            $this->introduced=($this->User->get_introduced)->tel;
+            $this->introduced=($this->user->get_introduced)->tel;
         }
     }
 
@@ -92,29 +92,29 @@ class Profile extends Component
 
         $this->states=State::get();
 
-        if(!is_null($this->User->state_id))
+        if(!is_null($this->user->state_id))
         {
-            $this->cities=City::where('state_id',$this->User->state_id)
-                            ->get();
+            $this->cities=City::where('state_id',$this->user->state_id)
+                ->get();
         }
 
         if(!is_null($this->gettingKnowParent))
         {
             $this->gettingKnow_children=CategoryGettingKnow::where('parent_id',$this->gettingKnowParent)
-                                    ->get();
+                ->get();
         }
 
         $this->gettingKnowList=CategoryGettingKnow::where('status',1)
-                                ->where('parent_id',0)
-                                ->where('status',1)
-                                ->get();
+            ->where('parent_id',0)
+            ->where('status',1)
+            ->get();
 
 
 
         $this->dispatchBrowserEvent('plugins');
 
         return view('crm::livewire.admin.users.profile')
-                                ->layout('masterView::admin.master.index');
+            ->layout('masterView::admin.master.index');
     }
 
     public function updatedUserFname()
@@ -135,14 +135,14 @@ class Profile extends Component
 
         $this->tabChange('profile');
         $this->validateOnly('User.personal_image');
-        $this->User->personal_image=$this->handleUploadImage();
+        $this->user->personal_image=$this->handleUploadImage();
     }
 
     public function handleUploadImage()
     {
 
-        $this->fileName="personal_".$this->User->id."_".time().".".$this->User->personal_image->extension();
-        $this->User->personal_image->storeAs('/documents/users',$this->fileName);
+        $this->fileName="personal_".$this->user->id."_".time().".".$this->user->personal_image->extension();
+        $this->user->personal_image->storeAs('/documents/users',$this->fileName);
         return $this->fileName;
     }
 
@@ -150,13 +150,13 @@ class Profile extends Component
     {
         $this->tabChange('infoConstract');
         $this->validateOnly('User.shenasnameh_image');
-        $this->User->shenasnameh_image=$this->handleUploadShenasnameh();
+        $this->user->shenasnameh_image=$this->handleUploadShenasnameh();
     }
 
     public function handleUploadShenasnameh()
     {
-        $this->fileName="shenasnameh_".$this->User->id."_".time().".".$this->User->shenasnameh_image->extension();
-        $this->User->shenasnameh_image->storeAs('/documents/users',$this->fileName);
+        $this->fileName="shenasnameh_".$this->user->id."_".time().".".$this->user->shenasnameh_image->extension();
+        $this->user->shenasnameh_image->storeAs('/documents/users',$this->fileName);
         return $this->fileName;
     }
 
@@ -164,13 +164,13 @@ class Profile extends Component
     {
         $this->tabChange('infoConstract');
         $this->validateOnly('User.education_image');
-        $this->User->education_image=$this->handleUploadEducation();
+        $this->user->education_image=$this->handleUploadEducation();
     }
 
     public function handleUploadEducation()
     {
-        $this->fileName="education_".$this->User->id."_".time().".".$this->User->education_image->extension();
-        $this->User->education_image->storeAs('/documents/users',$this->fileName);
+        $this->fileName="education_".$this->user->id."_".time().".".$this->user->education_image->extension();
+        $this->user->education_image->storeAs('/documents/users',$this->fileName);
         return $this->fileName;
     }
 
@@ -178,13 +178,13 @@ class Profile extends Component
     {
         $this->tabChange('infoConstract');
         $this->validateOnly('User.cartmelli_image');
-        $this->User->cartmelli_image=$this->handleUploadCartmelli();
+        $this->user->cartmelli_image=$this->handleUploadCartmelli();
     }
 
     public function handleUploadCartmelli()
     {
-        $this->fileName="cartmelli_image_".$this->User->id."_".time().".".$this->User->cartmelli_image->extension();
-        $this->User->cartmelli_image->storeAs('/documents/users',$this->fileName);
+        $this->fileName="cartmelli_image_".$this->user->id."_".time().".".$this->user->cartmelli_image->extension();
+        $this->user->cartmelli_image->storeAs('/documents/users',$this->fileName);
         return $this->fileName;
     }
 
@@ -192,13 +192,13 @@ class Profile extends Component
     {
         $this->tabChange('infoConstract');
         $this->validateOnly('User.resume');
-        $this->User->resume=$this->handleUploadresume();
+        $this->user->resume=$this->handleUploadresume();
     }
 
     public function handleUploadResume()
     {
-        $this->fileName="resume_".$this->User->id."_".time().".".$this->User->resume->extension();
-        $this->User->resume->storeAs('/documents/users',$this->fileName);
+        $this->fileName="resume_".$this->user->id."_".time().".".$this->user->resume->extension();
+        $this->user->resume->storeAs('/documents/users',$this->fileName);
         return $this->fileName;
     }
 
@@ -230,7 +230,7 @@ class Profile extends Component
 
     public function updatedUserTel()
     {
-        $this->User->tel=(ltrim($this->User->tel, '0'));
+        $this->user->tel=(ltrim($this->user->tel, '0'));
         $this->tabChange('infoContact');
         $this->validateOnly('User.tel');
     }
@@ -306,7 +306,7 @@ class Profile extends Component
     {
         $this->tabChange('infogettingKnow');
         $this->gettingKnow_children= CategoryGettingKnow::where('parent_id',$this->gettingKnowParent)
-                                                    ->get();
+            ->get();
     }
 
     public function UpdatedIntroduced($name)
@@ -317,16 +317,16 @@ class Profile extends Component
         $this->validateOnly('introduced');
 
         $this->checkIntroduced=User::where('tel',$this->introduced)
-                    ->first();
+            ->first();
 
         if(!is_null($this->checkIntroduced))
         {
-            $this->User->introduced=$this->checkIntroduced->id;
-            //$this->User->save();
+            $this->user->introduced=$this->checkIntroduced->id;
+            //$this->user->save();
         }
         else
         {
-            $this->User->introduced=NULL;
+            $this->user->introduced=NULL;
         }
 
 
@@ -340,13 +340,13 @@ class Profile extends Component
             'User.fname'          =>'nullable|persian_alpha|max:200',
             'User.lname'          =>'nullable|persian_alpha|max:200',
             'User.sex'            =>'nullable|boolean',
-            'User.codemelli'      =>'nullable|numeric|unique:Users,codemelli,'.$this->User->id,
+            'User.codemelli'      =>'nullable|numeric|unique:Users,codemelli,'.$this->user->id,
             'User.shenasname'     =>'nullable|numeric',
             'User.datebirth'      =>'nullable|string',
             'User.personal_image' =>'nullable|string|max:200',
-            'User.username'       =>'nullable|string|unique:users,username,'.$this->User->id,
-            'User.tel'            =>'required|unique:users,tel,'.$this->User->id,
-            'User.email'          =>'nullable|email|unique:users,email,'.$this->User->id,
+            'User.username'       =>'nullable|string|unique:users,username,'.$this->user->id,
+            'User.tel'            =>'required|unique:users,tel,'.$this->user->id,
+            'User.email'          =>'nullable|email|unique:users,email,'.$this->user->id,
             'User.state_id'       =>'nullable|numeric',
             'User.city_id'        =>'nullable|numeric',
             'User.address'        =>'nullable|string|max:200',
@@ -366,10 +366,10 @@ class Profile extends Component
             'User.resume'          =>'nullable|string|max:200',
         ]);
 
-        $this->User->save();
+        $this->user->save();
 
         $this->emit('toast','success','اطلاعات با موفقیت بروزرسانی شد');
-        return redirect(route('admin.user.profile',$this->User->id));
+        return redirect(route('admin.user.profile',$this->user->id));
     }
 
     public function tabChange($tab)
