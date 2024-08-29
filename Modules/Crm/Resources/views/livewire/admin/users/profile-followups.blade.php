@@ -15,7 +15,9 @@
                                         <div class="card text-white border border-3 border-danger  p-1" style="min-height: 70px">
                                         <span class="text-dark ">
                                             <i class="bi bi-book-fill ml-2"></i>
-                                            {{$item[0]->course['course']}}
+                                            @if(!is_null($item[0]->course))
+                                                {{$item[0]->course['course']}}
+                                            @endif
                                         </span>
                                             <span class="text-dark"><i class="bi bi-signpost ml-2"></i>{{$item->count()}} پیگیری</span>
                                             <span class="text-dark"><i class="bi bi-stopwatch ml-2"></i>{{$item->sum('talktime')}} دقیقه مکالمه</span>

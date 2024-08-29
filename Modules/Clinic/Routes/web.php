@@ -18,11 +18,15 @@ Route::prefix('clinic')->name('clinic.')->group(function() {
 
     //Clinic
     //Route::get('coaches','CoachController@index')->name('coaches');
-    Route::get('coach/{User}','CoachController@show')->name('coach.show');
+
+    Route::get('/coach/{user}','CoachController@show')->name('coach.show');
+    Route::get('/coach/{user}/bookings','BookingController@ajaxShowBookings');
+
 });
 
 Route::namespace('\\Modules\\Clinic\\Http\\Livewire\\')->prefix('clinic')->name('clinic.')->group(function() {
     Route::get('/', Coaches::class)->name('coaches');
+//    Route::get('/coach/{user}',CoachSingle::class)->name('coach.show');
 });
 
 

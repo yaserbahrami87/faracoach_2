@@ -18,6 +18,8 @@ class User extends Model
         'fname','lname','tel','tel_verified','email','password','username','fname_en','lname_en','sex','datebirth','father','codemelli','shenasname','born','education','reshteh','job','organization','jobside','address','personal_image','shenasnameh_image','cartmelli_image','education_image','resume','married','type','resource','introduced','followby_expert','insert_user_id','telegram','instagram','linkedin','aboutme','last_login_at'
     ];
 
+
+
     public function categoryGettingKnow()
     {
         return  $this->belongsTo(CategoryGettingKnow::class,'gettingknow','id');

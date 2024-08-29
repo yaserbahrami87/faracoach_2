@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Modules\Clinic\Entities\Coach;
+use Modules\Clinic\Entities\Reserve;
 use Modules\Crm\Entities\CategoryGettingKnow;
 use Modules\Crm\Entities\City;
 use Modules\Crm\Entities\Followup;
@@ -33,6 +34,8 @@ class User extends Authenticatable
     protected $fillable = [
         'fname','lname','tel','tel_verified', 'email', 'password','username','fname_en','lname_en','sex','datebirth','father','codemelli','shenasname','born','education','reshteh','job','organization','jobside','address','personal_image','shenasnameh_image','cartmelli_image','education_image','resume','married','type','resource','introduced','followby_expert','insert_user_id','telegram','instagram','linkedin','aboutme','last_login_at','gettingknow','city_id','state_id'
     ];
+
+
 
     /**
      * The attributes that should be hidden for arrays.
@@ -74,14 +77,8 @@ class User extends Authenticatable
 
     public function completedProfile()
     {
-        if(is_null($this->fname)&&is_null($this->lname)&&is_null($this->tel)&&is_null($this->email)&&is_null($this->username)&&is_null($this->fname_en)&&is_null($this->lname_en)&&is_null($this->sex)&&is_null($this->datebirth)&&is_null($this->father)&&is_null($this->codemelli)&&is_null($this->shenasname)&&is_null($this->born)&&is_null($this->education)&&is_null($this->reshteh)&&is_null($this->job)&&is_null($this->address)&&is_null($this->personal_image)&&is_null($this->shenasnameh_image)&&is_null($this->cartmelli_image)&&is_null($this->education_image)&&is_null($this->resume)&&is_null($this->married)&&is_null($this->telegram)&&is_null($this->instagram)&&is_null($this->state_id)&&is_null($this->city_id))
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
+
+        return (!is_null($this->fname)&&!is_null($this->lname)&&!is_null($this->tel)&&!is_null($this->email)&&!is_null($this->username)&&!is_null($this->sex)&&!is_null($this->datebirth)&&!is_null($this->father)&&!is_null($this->codemelli)&&!is_null($this->shenasname)&&!is_null($this->born)&&!is_null($this->education)&&!is_null($this->reshteh)&&!is_null($this->job)&&!is_null($this->address)&&!is_null($this->personal_image)&&!is_null($this->shenasnameh_image)&&!is_null($this->cartmelli_image)&&!is_null($this->education_image)&&!is_null($this->resume)&&!is_null($this->married)&&!is_null($this->telegram)&&!is_null($this->instagram)&&!is_null($this->state_id)&&!is_null($this->city_id));
     }
 
     //نمایش معرف
@@ -187,4 +184,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(RequestPortal::class);
     }
+
+    public function reserves()
+    {
+        return $this->hasMany(Reserve::class);
+    }
+
 }

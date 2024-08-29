@@ -28,6 +28,7 @@ class CoachController extends Controller
      */
     public function create()
     {
+
         if(Auth::user()->completedProfile())
         {
             $coachTypes=CoachType::get();

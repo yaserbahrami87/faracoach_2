@@ -144,7 +144,9 @@
                     <td>{{$user->followups->count()}}</td>
                     <td>
                         @if($user->followups->count()>0)
-                            {{($user->followups->last()->course->course)}}
+                            @if(!is_null($user->followups->last()->course))
+                                {{($user->followups->last()->course->course)}}
+                            @endif
                         @endif
                     </td>
                     <td>

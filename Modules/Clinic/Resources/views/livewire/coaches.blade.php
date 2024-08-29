@@ -26,38 +26,20 @@
 
                             <!-- Buttons -->
                             <button type="button" class="list-of-coaches-welcome__title__btn btn btn-primary ms-4 rounded-3">قوانین و ضوابط</button>
-                            <button type="button" class="list-of-coaches-welcome__title__btn list-of-coaches-welcome__title__btn--hover btn rounded-pill p-0 text-secondary" data-bs-toggle="modal" data-bs-target="#heroModal">
-                                <img src="images/main/play-icon.svg" alt="">
-                                <span class="ms-4 me-2">کوچینگ چیست؟</span>
-                            </button>
 
-                            <!-- Hero Modal -->
-                            <div class="modal fade" id="heroModal" tabindex="-1" aria-labelledby="heroModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered modal-lg">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="heroModalLabel">کوچینگ چیست؟</h5>
-                                            <button type="button" class="btn-close ms-0 me-auto" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body text-center">
-                                            <video controls width="100%">
-                                                <source src="images/main/sample-video.mp4" type="video/mp4">
-                                            </video>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary text-light" data-bs-dismiss="modal">خروج</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
                             <!-- Search Input -->
-                            <form action="">
+
                                 <div class="main-search__text input-group flex-row-reverse mt-4 shadow-sm">
-                                    <input type="text" class="form-control border-0" placeholder="جستجو کوچ" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                                    <input type="text" class="form-control border-0" placeholder="جستجو کوچ" wire:model="q">
                                     <span class="input-group-text border-0" id="button-addon1"><i class="isax isax-search-normal-1 text-cb"></i></span>
                                 </div>
-                            </form>
+                                @error('q')
+                                <p class="text text-danger" role="alert">
+                                    {{ $message }}
+                                </p>
+                                @enderror
+
 
                         </div>
                     </div>
@@ -99,6 +81,15 @@
                                             </label>
                                         </div>
                                         @endforeach
+                                            @foreach($clinicCategoriesChildren as $category)
+                                                <div class="form-check mb-3 border-bottom pb-3">
+                                                    <input class="form-check-input ms-2" type="checkbox" value="{{$category->id}}" id="clinicCategory{{$category->id}}" wire:model.lazy="clinicCategory_select">
+                                                    <label class="form-check-label user-select-none p-1" for="clinicCategory{{$category->id}}">
+                                                        {{$category->title}}
+                                                    </label>
+                                                </div>
+                                            @endforeach
+
 
                                     </div>
                                 </div>
@@ -118,12 +109,13 @@
                                     <div class="accordion-body">
                                         @foreach($coachCategories as $category)
                                             <div class="form-check mb-3 border-bottom pb-3">
-                                                <input class="form-check-input ms-2" type="checkbox" value="" id="three">
-                                                <label class="form-check-label user-select-none p-1" for="three">
+                                                <input class="form-check-input ms-2" type="checkbox" value="{{$category->id}}" id="coachCategory{{$category->id}}" wire:model.lazy="coachCategory_select">
+                                                <label class="form-check-label user-select-none p-1" for="coachCategory{{$category->id}}">
                                                     {{$category->category}}
                                                 </label>
                                             </div>
                                         @endforeach
+
 
                                     </div>
                                 </div>
@@ -143,15 +135,15 @@
                                     <div class="accordion-body">
 
                                         <div class="form-check mb-3 border-bottom pb-3">
-                                            <input class="form-check-input ms-2" type="checkbox" value="" id="eight">
-                                            <label class="form-check-label user-select-none p-1" for="eight">
+                                            <input class="form-check-input ms-2" type="checkbox" value="1" id="sex1" wire:model.lazy="sex_select">
+                                            <label class="form-check-label user-select-none p-1" for="sex1">
                                                 مرد
                                             </label>
                                         </div>
 
                                         <div class="form-check mb-3 border-bottom pb-3">
-                                            <input class="form-check-input ms-2" type="checkbox" value="" id="nine">
-                                            <label class="form-check-label user-select-none p-1" for="nine">
+                                            <input class="form-check-input ms-2" type="checkbox" value="0" id="sex2" wire:model.lazy="sex_select" >
+                                            <label class="form-check-label user-select-none p-1" for="sex2">
                                                 زن
                                             </label>
                                         </div>
@@ -160,37 +152,8 @@
                                 </div>
 
                             </div>
+                            <button type="button" class="btn btn-outline-dark" wire:click="clearFilters()">پاک کردن فیلترها</button>
 
-                            <!-- Class Type Filter -->
-                            <div class="accordion-item border-0">
-
-                                <h2 class="accordion-header" id="coachingClassTypeFilterHeading">
-                                    <button class="accordion-button bg-f8 text-ae fw-bold shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#coachingClassTypeFilter" aria-expanded="true" aria-controls="coachingClassTypeFilter">
-                                        جنسیت
-                                    </button>
-                                </h2>
-
-                                <div id="coachingClassTypeFilter" class="accordion-collapse collapse show bg-f8" aria-labelledby="coachingClassTypeFilterHeading">
-                                    <div class="accordion-body">
-
-                                        <div class="form-check mb-3 border-bottom pb-3">
-                                            <input class="form-check-input ms-2" type="checkbox" value="" id="ten">
-                                            <label class="form-check-label user-select-none p-1" for="ten">
-                                                حضوری
-                                            </label>
-                                        </div>
-
-                                        <div class="form-check mb-3 border-bottom pb-3">
-                                            <input class="form-check-input ms-2" type="checkbox" value="" id="eleven">
-                                            <label class="form-check-label user-select-none p-1" for="eleven">
-                                                آنلاین
-                                            </label>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                            </div>
 
                         </div>
                     </form>
@@ -219,7 +182,7 @@
                         <!-- Coach -->
                             <div class="col-12 col-md-6 col-xl-4 coach">
 
-                                <a href="{{route('clinic.coach.show',['User'=>$coach->user->username])}}" class="text-decoration-none text-reset coach__link">
+                                <a href="{{route('clinic.coach.show',['user'=>$coach->user->username])}}" class="text-decoration-none text-reset coach__link">
 
                                     <div class="card border-0 bg-f8 rounded-3">
 
@@ -264,7 +227,7 @@
 
                     </div>
 
-                    <!-- Pagination -->
+                    <!-- Pagination
                     <nav aria-label="Page navigation">
                         <ul class="pagination justify-content-center">
                             <li>
@@ -284,6 +247,7 @@
                             </li>
                         </ul>
                     </nav>
+                    -->
 
                 </main>
 

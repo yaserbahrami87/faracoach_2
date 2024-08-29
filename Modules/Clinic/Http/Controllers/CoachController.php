@@ -45,13 +45,15 @@ class CoachController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function show( $User)
+    public function show( $user)
     {
-        $user=User::where('username',$User)
+        $user=User::where('username',$user)
                 ->first();
+
         if($user->coach)
         {
-            return view('coach_single');
+            return view('coach-single')
+                        ->with('user',$user);
         }
         else
         {

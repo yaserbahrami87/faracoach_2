@@ -6,9 +6,11 @@ use Hekmatinasser\Verta\Verta;
 class JalaliDate
 {
     public $dateNow;
+    public static $verta;
     public function __construct()
     {
         $this->dateNow=verta();
+        self::$verta=verta();
     }
 
     public static function get_jalaliNow()

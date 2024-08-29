@@ -191,7 +191,7 @@
                             {{\App\Services\JalaliDate::changeTimestampToShamsi($user->created_at)}}
                         </p>
 
-                        <form class="d-inline-block" method="post" action="{{route('admin.user.loginWithUser',['User'=>$user])}}" onsubmit="return window.confirm('آیا از ورود با اکانت کاربر اطمینان دارید؟')">
+                        <form class="d-inline-block mb-2" method="post" action="{{route('admin.user.loginWithUser',['User'=>$user])}}" onsubmit="return window.confirm('آیا از ورود با اکانت کاربر اطمینان دارید؟')">
                             {{csrf_field()}}
                             <button type="submit" class="btn btn-outline-primary btn-sm"  data-toggle="tooltip" data-placement="top" title="ورود با اکانت کاربر">
                                 <i class="nav-icon material-icons">login</i>
@@ -204,6 +204,24 @@
                                 wire:click="$emit('openModal', 'crm::admin.users.change-password',{{ json_encode(['user' => $user->id]) }})">
                             <i class="nav-icon material-icons">key</i>
                         </button>
+
+                        <form method="post" wire:submit.prevent="changeType">
+                            <div class="input-group mb-3">
+                                    <select class="custom-select" id="userType" wire:model.lazy="user.type">
+                                        <option value="NULL">انتخاب کنید</option>
+                                        <option value="2" {{ old('sex',$user->type)=="2" ? 'selected': '' }} >مدیر</option>
+                                        <option value="3" {{ old('sex',$user->type)=="3" ? 'selected': '' }} >فروش</option>
+                                        <option value="4" {{ old('sex',$user->type)=="4" ? 'selected': '' }} >کلینیک</option>
+                                        <option value="5" {{ old('sex',$user->type)=="5" ? 'selected': '' }} >آموزش</option>
+                                        <option value="6" {{ old('sex',$user->type)=="6" ? 'selected': '' }} >کال سنتر</option>
+                                        <option value="7" {{ old('sex',$user->type)=="7" ? 'selected': '' }} >سوشیال</option>
+                                        <option value="1" {{ old('sex',$user->type)=="1" ? 'selected': '' }} >کاربر ساده</option>
+                                    </select>
+                                    <div class="input-group-prepend">
+                                        <button class="btn btn-outline-secondary" type="submit">تغییر دسترسی</button>
+                                    </div>
+                            </div>
+                        </form>
 
 
                         <p>دوره های گذرانده / در حال برگزاری:</p>

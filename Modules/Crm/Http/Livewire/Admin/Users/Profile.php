@@ -3,15 +3,19 @@
 namespace Modules\Crm\Http\Livewire\Admin\Users;
 
 
+use App\Services\JalaliDate;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Modules\Crm\Entities\CategoryGettingKnow;
 use Modules\Crm\Entities\City;
+use Modules\Crm\Entities\Followup;
 use Modules\Crm\Entities\Setting;
 use Modules\Crm\Entities\State;
 use App\User;
+use Modules\Crm\Entities\UserType;
 
 class Profile extends Component
 {
@@ -32,34 +36,35 @@ class Profile extends Component
     protected function rules()
     {
         return[
-            'User.fname'          =>'nullable|persian_alpha|max:200',
-            'User.lname'          =>'nullable|persian_alpha|max:200',
-            'User.personal_image' =>'nullable|image|max:1024',
-            'User.shenasnameh_image' =>'nullable|image|max:1024',
-            'User.education_image'=>'nullable|image|max:1024',
-            'User.cartmelli_image'=>'nullable|image|max:1024',
-            'User.resume'         =>'nullable|mimes:jpeg,jpg,pdf,png,bmp|max:1024',
-            'User.sex'            =>'nullable|boolean',
-            'User.codemelli'      =>'nullable|numeric|unique:Users,codemelli,'.$this->user->id,
-            'User.datebirth'      =>'nullable|date_format:Y/m/d|max:11',
-            'User.shenasname'     =>'nullable|numeric',
-            'User.username'       =>'nullable|string|unique:users,username'.$this->user->id,
-            'User.tel'            =>'required|unique:users,tel,'.$this->user->id,
-            'User.email'          =>'nullable|email|unique:users,email,'.$this->user->id,
-            'User.state_id'       =>'nullable|numeric',
-            'User.city_id'        =>'nullable|numeric',
-            'User.address'        =>'nullable|string|max:200',
-            'User.instagram'      =>'nullable|string|max:200|',
-            'User.telegram'       =>'nullable|string|max:200|',
-            'User.linkedin'       =>'nullable|string|max:200|',
-            'User.father'         =>'nullable|persian_alpha|max:200|',
-            'User.married'        =>'nullable|boolean',
-            'User.born'           =>'nullable|string|max:200|',
-            'User.education'      =>'nullable|in:دیپلم,فوق دیپلم,لیسانس,فوق لیسانس,دکتری و بالاتر,زیردیپلم|',
-            'User.reshteh'        =>'nullable|string|',
-            'User.job'            =>'nullable|string|',
-            'User.gettingknow'    =>'nullable|numeric',
-            'User.introduced'     =>'nullable|numeric',
+            'user.fname'          =>'nullable|persian_alpha|max:200',
+            'user.lname'          =>'nullable|persian_alpha|max:200',
+            'user.personal_image' =>'nullable|image|max:1024',
+            'user.shenasnameh_image' =>'nullable|image|max:1024',
+            'user.education_image'=>'nullable|image|max:1024',
+            'user.cartmelli_image'=>'nullable|image|max:1024',
+            'user.resume'         =>'nullable|mimes:jpeg,jpg,pdf,png,bmp|max:1024',
+            'user.sex'            =>'nullable|boolean',
+            'user.codemelli'      =>'nullable|numeric|unique:users,codemelli,'.$this->user->id,
+            'user.datebirth'      =>'nullable|date_format:Y/m/d|max:11',
+            'user.shenasname'     =>'nullable|numeric',
+            'user.username'       =>'nullable|string|unique:users,username'.$this->user->id,
+            'user.tel'            =>'required|unique:users,tel,'.$this->user->id,
+            'user.email'          =>'nullable|email|unique:users,email,'.$this->user->id,
+            'user.state_id'       =>'nullable|numeric',
+            'user.city_id'        =>'nullable|numeric',
+            'user.address'        =>'nullable|string|max:200',
+            'user.instagram'      =>'nullable|string|max:200|',
+            'user.telegram'       =>'nullable|string|max:200|',
+            'user.linkedin'       =>'nullable|string|max:200|',
+            'user.father'         =>'nullable|persian_alpha|max:200|',
+            'user.married'        =>'nullable|boolean',
+            'user.born'           =>'nullable|string|max:200|',
+            'user.education'      =>'nullable|in:دیپلم,فوق دیپلم,لیسانس,فوق لیسانس,دکتری و بالاتر,زیردیپلم|',
+            'user.reshteh'        =>'nullable|string|',
+            'user.job'            =>'nullable|string|',
+            'user.gettingknow'    =>'nullable|numeric',
+            'user.introduced'     =>'nullable|numeric',
+            'user.type'           =>'nullable|numeric',
             'introduced'          =>'nullable|numeric',
         ];
     }
@@ -134,7 +139,7 @@ class Profile extends Component
     {
 
         $this->tabChange('profile');
-        $this->validateOnly('User.personal_image');
+        $this->validateOnly('user.personal_image');
         $this->user->personal_image=$this->handleUploadImage();
     }
 
@@ -149,7 +154,7 @@ class Profile extends Component
     public function updatedUserShenasnamehImage()
     {
         $this->tabChange('infoConstract');
-        $this->validateOnly('User.shenasnameh_image');
+        $this->validateOnly('user.shenasnameh_image');
         $this->user->shenasnameh_image=$this->handleUploadShenasnameh();
     }
 
@@ -163,7 +168,7 @@ class Profile extends Component
     public function updatedUserEducationImage()
     {
         $this->tabChange('infoConstract');
-        $this->validateOnly('User.education_image');
+        $this->validateOnly('user.education_image');
         $this->user->education_image=$this->handleUploadEducation();
     }
 
@@ -177,7 +182,7 @@ class Profile extends Component
     public function updatedUserCartmelliImage()
     {
         $this->tabChange('infoConstract');
-        $this->validateOnly('User.cartmelli_image');
+        $this->validateOnly('user.cartmelli_image');
         $this->user->cartmelli_image=$this->handleUploadCartmelli();
     }
 
@@ -191,7 +196,7 @@ class Profile extends Component
     public function updatedUserResume()
     {
         $this->tabChange('infoConstract');
-        $this->validateOnly('User.resume');
+        $this->validateOnly('user.resume');
         $this->user->resume=$this->handleUploadresume();
     }
 
@@ -206,100 +211,100 @@ class Profile extends Component
     public function updatedUserSex()
     {
         $this->tabChange('profile');
-        $this->validateOnly('User.sex');
+        $this->validateOnly('user.sex');
     }
 
     public function updatedUserCodemelli ()
     {
         $this->tabChange('profile');
-        $this->validateOnly('User.codemelli');
+        $this->validateOnly('user.codemelli');
     }
 
     public function updatedUserShenasname ()
     {
         $this->tabChange('profile');
-        $this->validateOnly('User.shenasname');
+        $this->validateOnly('user.shenasname');
     }
 
     public function updatedUserDatebirth()
     {
 
         $this->tabChange('profile');
-        $this->validateOnly('User.datebirth');
+        $this->validateOnly('user.datebirth');
     }
 
     public function updatedUserTel()
     {
         $this->user->tel=(ltrim($this->user->tel, '0'));
         $this->tabChange('infoContact');
-        $this->validateOnly('User.tel');
+        $this->validateOnly('user.tel');
     }
 
     public function updatedUserEmail()
     {
         $this->tabChange('infoContact');
-        $this->validateOnly('User.email');
+        $this->validateOnly('user.email');
     }
 
     public function updatedUserStateId()
     {
         $this->tabChange('infoContact');
-        $this->validateOnly('User.state_id');
+        $this->validateOnly('user.state_id');
     }
 
     public function updatedUserCityId()
     {
         $this->tabChange('infoContact');
-        $this->validateOnly('User.city_id');
+        $this->validateOnly('user.city_id');
     }
 
     public function updatedUserAddress()
     {
         $this->tabChange('infoContact');
-        $this->validateOnly('User.address');
+        $this->validateOnly('user.address');
     }
 
     public function updatedUserInstagram()
     {
         $this->tabChange('infoContact');
-        $this->validateOnly('User.instagram');
+        $this->validateOnly('user.instagram');
     }
 
     public function updatedUserTelegram()
     {
         $this->tabChange('infoContact');
-        $this->validateOnly('User.telegram');
+        $this->validateOnly('user.telegram');
     }
 
     public function updatedUserLinkedin()
     {
         $this->tabChange('infoContact');
-        $this->validateOnly('User.linkedin');
+        $this->validateOnly('user.linkedin');
     }
 
 
     public function updatedUserFather()
     {
         $this->tabChange('infoConstract');
-        $this->validateOnly('User.father');
+        $this->validateOnly('user.father');
     }
 
     public function updatedUserBorn()
     {
         $this->tabChange('infoConstract');
-        $this->validateOnly('User.born');
+        $this->validateOnly('user.born');
     }
 
     public function updatedUserEducation()
     {
         $this->tabChange('infoConstract');
-        $this->validateOnly('User.education');
+        $this->validateOnly('user.education');
     }
 
     public function updatedUserReshteh()
     {
         $this->tabChange('infoConstract');
-        $this->validateOnly('User.reshteh');
+        $this->validateOnly('user.reshteh');
     }
 
     public function updatedGettingKnowParent()
@@ -337,33 +342,33 @@ class Profile extends Component
     {
 
         $this->validate([
-            'User.fname'          =>'nullable|persian_alpha|max:200',
-            'User.lname'          =>'nullable|persian_alpha|max:200',
-            'User.sex'            =>'nullable|boolean',
-            'User.codemelli'      =>'nullable|numeric|unique:Users,codemelli,'.$this->user->id,
-            'User.shenasname'     =>'nullable|numeric',
-            'User.datebirth'      =>'nullable|string',
-            'User.personal_image' =>'nullable|string|max:200',
-            'User.username'       =>'nullable|string|unique:users,username,'.$this->user->id,
-            'User.tel'            =>'required|unique:users,tel,'.$this->user->id,
-            'User.email'          =>'nullable|email|unique:users,email,'.$this->user->id,
-            'User.state_id'       =>'nullable|numeric',
-            'User.city_id'        =>'nullable|numeric',
-            'User.address'        =>'nullable|string|max:200',
-            'User.instagram'      =>'nullable|string|max:200|',
-            'User.telegram'       =>'nullable|string|max:200|',
-            'User.linkedin'       =>'nullable|string|max:200|',
-            'User.father'         =>'nullable|persian_alpha|max:200|',
-            'User.married'        =>'nullable|boolean',
-            'User.born'           =>'nullable|string|max:200|',
-            'User.education'      =>'nullable|in:دیپلم,فوق دیپلم,لیسانس,فوق لیسانس,دکتری و بالاتر,زیردیپلم|',
-            'User.reshteh'        =>'nullable|string|',
-            'User.job'            =>'nullable|string|',
-            'User.gettingknow'    =>'nullable|numeric|',
-            'User.shenasnameh_image' =>'nullable|string|max:200',
-            'User.cartmelli_image' =>'nullable|string|max:200',
-            'User.education_image' =>'nullable|string|max:200',
-            'User.resume'          =>'nullable|string|max:200',
+            'user.fname'          =>'nullable|persian_alpha|max:200',
+            'user.lname'          =>'nullable|persian_alpha|max:200',
+            'user.sex'            =>'nullable|boolean',
+            'user.codemelli'      =>'nullable|numeric|unique:users,codemelli,'.$this->user->id,
+            'user.shenasname'     =>'nullable|numeric',
+            'user.datebirth'      =>'nullable|string',
+            'user.personal_image' =>'nullable|string|max:200',
+            'user.username'       =>'nullable|string|unique:users,username,'.$this->user->id,
+            'user.tel'            =>'required|unique:users,tel,'.$this->user->id,
+            'user.email'          =>'nullable|email|unique:users,email,'.$this->user->id,
+            'user.state_id'       =>'nullable|numeric',
+            'user.city_id'        =>'nullable|numeric',
+            'user.address'        =>'nullable|string|max:200',
+            'user.instagram'      =>'nullable|string|max:200|',
+            'user.telegram'       =>'nullable|string|max:200|',
+            'user.linkedin'       =>'nullable|string|max:200|',
+            'user.father'         =>'nullable|persian_alpha|max:200|',
+            'user.married'        =>'nullable|boolean',
+            'user.born'           =>'nullable|string|max:200|',
+            'user.education'      =>'nullable|in:دیپلم,فوق دیپلم,لیسانس,فوق لیسانس,دکتری و بالاتر,زیردیپلم|',
+            'user.reshteh'        =>'nullable|string|',
+            'user.job'            =>'nullable|string|',
+            'user.gettingknow'    =>'nullable|numeric|',
+            'user.shenasnameh_image' =>'nullable|string|max:200',
+            'user.cartmelli_image' =>'nullable|string|max:200',
+            'user.education_image' =>'nullable|string|max:200',
+            'user.resume'          =>'nullable|string|max:200',
         ]);
 
         $this->user->save();
@@ -388,6 +393,36 @@ class Profile extends Component
         {
             $this->emit('showInvitations',true);
         }
+
+    }
+
+    public function changeType()
+    {
+
+        $this->validateOnly('user.type');
+        $this->user->followby_expert=NULL;
+        $status=$this->user->save();
+        $this->user=User::where('id',$this->user->id)
+                            ->first();
+
+        if($status)
+        {
+            Followup::create([
+                'user_id'               =>$this->user->id,
+                'insert_user_id'        =>Auth::user()->id,
+                'date_fa'               =>JalaliDate::get_jalaliNow(),
+                'time_fa'               =>JalaliDate::get_timeNow(),
+                'comment'               =>" کاربر ارجاع داده شد به بخش ".$this->user->userType->type,
+                'status_followups'      =>$this->user->type,
+                'datetime_fa'           =>JalaliDate::get_timeNow()." ".JalaliDate::get_timeNow(),
+            ]);
+            $this->emit('toast','success','تغییر دسترسی با موفقیت انجام شد');
+        }
+        else
+        {
+            $this->emit('toast','danger','خطا در تغییر دسترسی');
+        }
+
 
     }
 

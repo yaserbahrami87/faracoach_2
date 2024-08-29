@@ -2,9 +2,12 @@
 
 namespace Modules\Clinic\Http\Controllers;
 
+
+use App\User;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Clinic\Entities\Booking;
 
 class BookingController extends Controller
 {
@@ -75,5 +78,27 @@ class BookingController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function ajaxShowBookings($user,Request $request)
+    {
+            $request->validate(
+                [
+                    'date'  =>'required|',
+                ]
+            );
+
+            $user=User::where('username',$user)
+                                ->first();
+            if(!is_null($user->coach))
+            {
+                $bookings=Booking::where('coach_id',$user->coach->id)
+                                ->where('start_date',$request->date)
+                                ->get();
+                return($bookings);
+
+            }
+
+
     }
 }

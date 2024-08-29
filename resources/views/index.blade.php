@@ -319,7 +319,11 @@
                                         <p class="card-text mb-5 text-ae">من به عنوان یک شریک و همراه در فکر کردن، کنار تو هستم تا افکار و باورهایی که مانع از رسیدن</p>
                                         -->
                                         <footer class="d-flex justify-content-between align-items-center">
-                                            <a href="{{route('clinic.coach.show',['User'=>$coach->user->username])}}" class="btn btn-primary">مشاهده پروفایل</a>
+                                            @if(!is_null($coach->user->username))
+                                                <a href="{{route('clinic.coach.show',['user'=>$coach->user->username])}}" class="btn btn-primary">مشاهده پروفایل</a>
+                                            @else
+                                                <a href="" class="btn btn-primary" >اطلاعات ناقص کوچ</a>
+                                            @endif
                                             <div class="d-inline-block">
                                                 <!--
                                                 <img src="images/main/medal.svg" alt="">
