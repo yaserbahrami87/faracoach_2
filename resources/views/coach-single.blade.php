@@ -83,19 +83,21 @@
                                     <a href="tel:{{$user->tel}}" class="text-dark text-decoration-none">{{$user->tel}}</a>
                                 </li>
                                 <li class="list-group-item border-0 rounded-1 py-3 d-flex align-items-center mb-4">
-                                    @if(!is_null($user->coach->coachSettings->where('setting','coaching_fi')))
+                                    @if(($user->coach->coachSettings->where('setting','coaching_fi')->count()>0))
                                         <p class="text-dark text-decoration-none">قیمت جلسه کوچینگ:</p>
                                         <p>{{number_format($user->coach->coachSettings->where('setting','coaching_fi')->first()->value)}} تومان</p>
                                     @endif
                                 </li>
                                 <li class="list-group-item border-0 rounded-1 py-3 d-flex align-items-center mb-4">
-                                    @if(!is_null($user->coach->coachSettings->where('setting','counseling_fi')))
+                                    @if(($user->coach->coachSettings->where('setting','counseling_fi')->count()>0))
                                         <p class="text-dark text-decoration-none">قیمت هر جلسه مشاوره:</p>
                                         <p>{{number_format($user->coach->coachSettings->where('setting','counseling_fi')->first()->value)}} تومان</p>
                                     @endif
                                 </li>
+
                                 <li class="list-group-item border-0 rounded-1 py-3 d-flex align-items-center mb-4">
-                                    @if(!is_null($user->coach->coachSettings->where('setting','service_fi')))
+
+                                    @if(($user->coach->coachSettings->where('setting','service_fi')->count()>0))
                                         <p class="text-dark text-decoration-none">قیمت هر خدمت:</p>
                                         <p>{{number_format($user->coach->coachSettings->where('setting','service_fi')->first()->value)}} تومان</p>
                                     @endif

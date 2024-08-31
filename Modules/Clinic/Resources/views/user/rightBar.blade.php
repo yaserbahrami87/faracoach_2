@@ -13,11 +13,23 @@
                 <p>درخواست همکاری</p>
             </a>
         </li>
+        <li class="nav-item">
+            <a href="{{route('user.clinic.reserves')}}" class="nav-link">
+                <i class="fa fa-circle-o nav-icon"></i>
+                <p>جلسات رزرو کرده</p>
+            </a>
+        </li>
         @if(Auth::user()->is_coach)
             <li class="nav-item">
                 <a href="{{route('user.clinic.booking.all')}}" class="nav-link">
                     <i class="fa fa-circle-o nav-icon"></i>
-                    <p>جلسات</p>
+                    <p>وضعیت جلسات</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{route('user.clinic.booking.reserves')}}" class="nav-link">
+                    <i class="fa fa-circle-o nav-icon"></i>
+                    <p>جلسات رزرو شده</p>
                 </a>
             </li>
             <li class="nav-item">

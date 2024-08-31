@@ -45,6 +45,7 @@ class CoachSingle extends Component
     public function mount($user)
     {
         $this->user=$user;
+
     }
 
     public function render()
@@ -143,6 +144,12 @@ class CoachSingle extends Component
         $this->subject=NULL;
         $this->description=NULL;
         $this->type_booking=NULL;
+        $this->fi=NULL;
+        $this->final_fi=NULL;
+        $this->coupon=NULL;
+        $this->cliniccategory=NULL;
+        $this->off=NULL;
+        $this->type_discount=NULL;
         $this->render();
 
     }

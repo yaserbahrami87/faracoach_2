@@ -37,11 +37,14 @@ class Booking extends Model
             {
                 case 0:return "در انتظار رزرو";
                         break;
-                case 1:return "رزرو شده";
+                case 1:return "رزرو در انتظار تائید";
                         break;
-                case 2:
-                    return 'برگزارشد';
-                    break;
+                case 10:return "رزرو تائید شده";
+                        break;
+                case 11:return "رد شده توسط کوچ";
+                        break;
+                case 2:return 'برگزارشد';
+                        break;
                 case 3:
                     return 'کنسل توسط مراجع';
                     break;
@@ -64,12 +67,25 @@ class Booking extends Model
     {
         return [
           '0'=> "در انتظار رزرو",
-          '1'=> "رزرو شده",
+          '1'=> "رزرو در انتظار تائید",
+          '10'=> "رزرو تائید شده",
+          '11'=> "رد شده توسط کوچ",
+          '12'=> "رد شده توسط مراجع",
           '2'=>'برگزارشد',
-          '3'=> 'کنسل توسط مراجع',
-          '4'=> 'کنسل توسط کوچ',
+          '3'=> 'لغو توسط مراجع',
+          '4'=> 'لغو توسط کوچ',
           '5'=>  'غیبت مراجع',
           '6'=>'غیبت کوچ',
         ];
+    }
+
+    public function reserves()
+    {
+        return $this->hasMany(Reserve::class);
+    }
+
+    public function coach()
+    {
+        return $this->belongsTo(Coach::class);
     }
 }

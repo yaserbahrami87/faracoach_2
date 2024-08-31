@@ -80,25 +80,5 @@ class BookingController extends Controller
         //
     }
 
-    public function ajaxShowBookings($user,Request $request)
-    {
-            $request->validate(
-                [
-                    'date'  =>'required|',
-                ]
-            );
 
-            $user=User::where('username',$user)
-                                ->first();
-            if(!is_null($user->coach))
-            {
-                $bookings=Booking::where('coach_id',$user->coach->id)
-                                ->where('start_date',$request->date)
-                                ->get();
-                return($bookings);
-
-            }
-
-
-    }
 }

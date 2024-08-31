@@ -216,4 +216,86 @@ class BookingController extends Controller
 
         return back();
     }
+
+    public function statusAfterReserve(Booking $booking,Request $request)
+    {
+        $request->validate([
+           'status' =>'required|in:10,11'
+        ]);
+        $reserve=($booking->reserves->where('status',0)->first());
+        if($request->status==10)
+        {
+            $booking->status=10;
+            $status=$booking->save();
+            alert()->success('جلسه با موفقیت تائید شد');
+
+        }
+        elseif($request->status==11)
+        {
+            //رد شده
+            $booking->status=0;
+            $status=$booking->save();
+            alert()->success('جلسه توسط شما رد شد');
+        }
+
+        $reserve->status=$request->status;
+        $reserve->save();
+
+        return back();
+
+    }
+
+    public function cancelCoach (Booking $booking)
+    {
+        if(Auth::user()->coach->id==$booking->coach_id)
+        {
+            $reserve=$booking->reserves->where('status',10)->first();
+            $reserve->status=4;
+            $reserve->save();
+            $booking->status=0;
+            $status=$booking->save();
+
+            if($status)
+            {
+                alert()->success('جلسه با موفقیت لغو شد');
+            }
+            else
+            {
+                alert()->error('خطا در لغو جلسه');
+            }
+        }
+        else
+        {
+            alert()->warning('شما مجاز به دسترسی به این بخش ندارید');
+        }
+        return back();
+    }
+
+    public function assignment(Booking $booking,Request $request)
+    {
+        $request->validate([
+            'status' =>'required|in:2,3,4,5,6|'
+        ]);
+        $reserve=($booking->reserves->where('status',10)->first());
+        $reserve->status=$request->status;
+        $status=$reserve->save();
+        $booking->status=$request->status;
+        $booking->save();
+        if($status)
+        {
+            alert()->success('جلسه تعیین تکلیف شد');
+        }
+        else
+        {
+            alert()->error('خطا در تعیین تکلیف جلسه');
+        }
+
+        return back();
+    }
+
+
+    public function reserves()
+    {
+        return view('clinic::user.coach.booking.reserves');
+    }
 }

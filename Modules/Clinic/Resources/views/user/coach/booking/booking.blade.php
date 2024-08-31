@@ -59,10 +59,10 @@
             @foreach(Auth::user()->coach->bookings as $booking)
                 <tr>
                     <td class="text-center">
-                        <a href="/panel/booking/{{$booking->id}}">{{$booking->id}}</a>
+                       {{$booking->id}}
                     </td>
                     <td>
-                        <a href="/panel/booking/{{$booking->id}}">{{$booking->start_date}}</a>
+                        {{$booking->start_date}}
                     </td>
                     <td class="text-center">{{$booking->start_time}}</td>
                     <td class="text-center">{{$booking->end_time}}</td>
@@ -78,13 +78,43 @@
                                 </button>
                             </form>
                         @elseif($booking->start_date>\App\Services\JalaliDate::get_jalaliNow() && ($booking['status']!=4) && ($booking->status==1))
-                            <form method="POST" action="/panel/booking/{{$booking->id}}" onsubmit="return confirm('آیا از لغو جلسه اطمینان دارید؟')">
+                            <form method="POST" action="{{route('user.clinic.booking.statusAfterReserve',['booking'=>$booking->id])}}" >
                                 {{csrf_field()}}
                                 {{method_field('PATCH')}}
-                                <input type="hidden" name="status" value="4" />
-                                <button type="submit" class="btn btn-danger">لغو جلسه
-                                    <i class="bi bi-x-lg"></i>
-                                </button>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <button class="btn btn-outline-secondary" type="submit">اعمال</button>
+                                    </div>
+                                    <select class="custom-select" id="inputGroupSelect03" name="status">
+                                        <option selected disabled>انتخاب کنید</option>
+                                        <option value="10">تائید جلسه</option>
+                                        <option value="11">رد جلسه</option>
+                                    </select>
+                                </div>
+                            </form>
+                        @elseif($booking->start_date>\App\Services\JalaliDate::get_jalaliNow() && $booking->status==10)
+                            <form method="post" action="{{route('user.clinic.booking.cancel',['booking'=>$booking->id])}}" onsubmit="return window.confirm('آیا لغو رد جلسه اطمینان دارید؟')" >
+                                {{csrf_field()}}
+                                {{method_field('PATCH')}}
+                                <button class="btn btn-warning">لغو جلسه</button>
+                            </form>
+                        @elseif($booking->start_date<\App\Services\JalaliDate::get_jalaliNow() && $booking->status==10)
+                            <form method="POST" action="{{route('user.clinic.booking.assignment',['booking'=>$booking->id])}}" >
+                                {{csrf_field()}}
+                                {{method_field('PATCH')}}
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <button class="btn btn-outline-secondary" type="submit">اعمال</button>
+                                    </div>
+                                    <select class="custom-select" id="inputGroupSelect03" name="status">
+                                        <option selected disabled>انتخاب کنید</option>
+                                        <option value="2">برگزارشد</option>
+                                        <option value="3">لغو توسط مراجع</option>
+                                        <option value="4">لغو توسط کوچ</option>
+                                        <option value="5">غیبت مراجع</option>
+                                        <option value="6">غیبت کوچ</option>
+                                    </select>
+                                </div>
                             </form>
                         @endif
                     </td>

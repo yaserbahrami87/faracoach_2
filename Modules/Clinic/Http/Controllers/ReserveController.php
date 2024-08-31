@@ -14,6 +14,7 @@ class ReserveController extends Controller
      */
     public function index()
     {
+        dd('asdsad');
         return view('clinic::index');
     }
 

@@ -7,6 +7,22 @@ Route::get('/coach/setting','Coach\\CoachSettingController@index')->name('coach.
 Route::post('/coach/setting','Coach\\CoachSettingController@update')->name('coach.setting.update');
 
 //Booking
-Route::get('/booking','Coach\\BookingController@index')->name('booking.all');
-Route::post('/booking','Coach\\BookingController@store')->name('booking.store');
-Route::delete('/booking/{booking}','Coach\\BookingController@destroy')->name('booking.destroy');
+Route::prefix('booking')->name('booking.')->group(function() {
+
+    Route::get('/','Coach\\BookingController@index')->name('all');
+    Route::post('/','Coach\\BookingController@store')->name('store');
+    Route::delete('/{booking}','Coach\\BookingController@destroy')->name('destroy');
+    Route::patch('/{booking}/statusAfterReserve','Coach\\BookingController@statusAfterReserve')->name('statusAfterReserve');
+    Route::patch('/{booking}/cancelCoach','Coach\\BookingController@cancelCoach')->name('cancel');
+    Route::patch('/{booking}/assignment','Coach\\BookingController@assignment')->name('assignment');
+    Route::get('/reserves','Coach\\BookingController@reserves')->name('reserves');
+
+});
+
+
+//Reserve USER
+Route::prefix('user/reserve')->group(function() {
+    Route::get('/', 'ReserveController@index')->name('reserves');
+    Route::post('/{Reserve}/ignore','ReserveController@ignoreUser')->name('reserve.ignore');
+    Route::patch('/{Reserve}/cancel','ReserveController@cancelUser')->name('reserve.cancel');
+});

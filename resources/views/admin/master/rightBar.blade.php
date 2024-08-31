@@ -16,7 +16,7 @@
                     @if(is_null(Auth::user()->personal_image) )
                             <img src="/images/users/default-avatar.png" class="img-circle elevation-2" >
                     @else
-                            <img src="/documents/users/{{$user->personal_image}}" class="img-circle elevation-2" >
+                            <img src="/documents/users/{{Auth::user()->personal_image}}" class="img-circle elevation-2" >
                     @endif
                 </div>
                 <div class="info">

@@ -28,6 +28,11 @@ class ClinicCategory extends Model
         return $this->belongsTo(ClinicCategory::class,'parent_id','id');
     }
 
+    public function reserves()
+    {
+        return $this->hasMany(Reserve::class,'cliniccategory_id','id');
+    }
+
 
 
 
