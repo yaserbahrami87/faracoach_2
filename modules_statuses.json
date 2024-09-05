@@ -8,5 +8,6 @@
     "ChangeForeignKey": true,
     "Event": true,
     "RequestPortal": true,
-    "Ticket": true
+    "Ticket": true,
+    "Comment": true
 }

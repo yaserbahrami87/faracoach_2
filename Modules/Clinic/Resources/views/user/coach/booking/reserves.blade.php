@@ -8,6 +8,19 @@
         <link href="/dashboard/plugins/datatables/jquery.dataTables_themeroller.css" rel="stylesheet" />
 
     @endslot
+    <div class="col-12 col-md-8 mx-auto mb-2 card">
+        <div class="row">
+            <div class="card-header col-12">
+                راهنمای رنگ ها:
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-md-2 text-center" style="background-color:  #b3ffb3">برگزار شده</div>
+                    <div class="col-12 col-md-2 text-center" style="background-color:  #ffffb3">در انتظار تائید</div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="col-12 table-responsive">
         <table id="dataTable" class=" table table-striped table-bordered" style="width:100%">
             <thead>
@@ -32,7 +45,7 @@
             @foreach(Auth::user()->coach->bookings as $booking)
                 @if($booking->reserves->count()>0)
                     @foreach($booking->reserves as $reserve)
-                        <tr>
+                        <tr style="background-color:@if($reserve->status==2) #b3ffb3 @elseif($reserve->status==0) #ffffb3 @endif " >
                             <td class="text-center">
                                 {{$reserve->id}}
                             </td>
@@ -80,24 +93,11 @@
                                         <button class="btn btn-warning">لغو جلسه</button>
                                     </form>
                                 @elseif($reserve->booking->start_date<\App\Services\JalaliDate::get_jalaliNow() && $reserve->booking->status==10)
-                                    <form method="POST" action="{{route('user.clinic.booking.assignment',['booking'=>$reserve->booking->id])}}" >
-                                        {{csrf_field()}}
-                                        {{method_field('PATCH')}}
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <button class="btn btn-outline-secondary" type="submit">اعمال</button>
-                                            </div>
-                                            <select class="custom-select" id="inputGroupSelect03" name="status">
-                                                <option selected disabled>انتخاب کنید</option>
-                                                <option value="2">برگزارشد</option>
-                                                <option value="3">لغو توسط مراجع</option>
-                                                <option value="4">لغو توسط کوچ</option>
-                                                <option value="5">غیبت مراجع</option>
-                                                <option value="6">غیبت کوچ</option>
-                                            </select>
-                                        </div>
-                                    </form>
+                                    <button class="btn btn-success" wire:key="{{$reserve->id}}" onclick="Livewire.emit('openModal', 'clinic::user.coach.reserve-assignment',{{ json_encode(['reserve' => $reserve->id]) }})">
+                                        تعیین تکلیف جلسه
+                                    </button>
                                 @endif
+
                             </td>
 
                         </tr>

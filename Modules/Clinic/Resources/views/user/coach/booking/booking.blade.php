@@ -1,5 +1,9 @@
 @component('masterView::user.master.index')
     @slot('headerScript')
+        <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+        <!-- Alpine v3 -->
+        <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
         <link href="/dashboard/plugins/datatables/dataTables.bootstrap4.css" rel="stylesheet" />
         <link href="/dashboard/plugins/datatables/jquery.dataTables_themeroller.css" rel="stylesheet" />
     @endslot
@@ -99,23 +103,9 @@
                                 <button class="btn btn-warning">لغو جلسه</button>
                             </form>
                         @elseif($booking->start_date<\App\Services\JalaliDate::get_jalaliNow() && $booking->status==10)
-                            <form method="POST" action="{{route('user.clinic.booking.assignment',['booking'=>$booking->id])}}" >
-                                {{csrf_field()}}
-                                {{method_field('PATCH')}}
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <button class="btn btn-outline-secondary" type="submit">اعمال</button>
-                                    </div>
-                                    <select class="custom-select" id="inputGroupSelect03" name="status">
-                                        <option selected disabled>انتخاب کنید</option>
-                                        <option value="2">برگزارشد</option>
-                                        <option value="3">لغو توسط مراجع</option>
-                                        <option value="4">لغو توسط کوچ</option>
-                                        <option value="5">غیبت مراجع</option>
-                                        <option value="6">غیبت کوچ</option>
-                                    </select>
-                                </div>
-                            </form>
+                            <button class="btn btn-success" wire:key="{{$booking->reserves->where('status',10)->first()->id}}" onclick="Livewire.emit('openModal', 'clinic::user.coach.reserve-assignment',{{ json_encode(['reserve' => $booking->reserves->where('status',10)->first()->id]) }})">
+                                تعیین تکلیف جلسه
+                            </button>
                         @endif
                     </td>
 

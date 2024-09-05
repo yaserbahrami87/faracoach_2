@@ -8,6 +8,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Modules\Clinic\Entities\Coach;
 use Modules\Clinic\Entities\Reserve;
+use Modules\Comment\Entities\Comment;
 use Modules\Crm\Entities\CategoryGettingKnow;
 use Modules\Crm\Entities\City;
 use Modules\Crm\Entities\Followup;
@@ -188,6 +189,11 @@ class User extends Authenticatable
     public function reserves()
     {
         return $this->hasMany(Reserve::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 
 }

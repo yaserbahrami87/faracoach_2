@@ -2,6 +2,9 @@
     @slot('headerScript')
         <link href="/dashboard/plugins/datatables/dataTables.bootstrap4.css" rel="stylesheet" />
         <link href="/dashboard/plugins/datatables/jquery.dataTables_themeroller.css" rel="stylesheet" />
+        <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+        <!-- Alpine v3 -->
+        <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     @endslot
 
     <div class="col-12 table-responsive">
@@ -57,6 +60,14 @@
                                 {{method_field('PATCH')}}
                                 <button class="btn btn-warning">لغو جلسه</button>
                             </form>
+                        @elseif($reserve->booking->start_date<\App\Services\JalaliDate::get_jalaliNow() && $reserve->booking->status==2)
+                            @if(!is_null($reserve->rate)&&is_null($reserve->feedback) )
+                                <button class="btn btn-outline-dark" wire:key="{{$reserve->id}}" onclick="Livewire.emit('openModal', 'clinic::user.insert-comment',{{ json_encode(['reserve' => $reserve->id]) }})">
+                                    ثبت تجربه
+                                </button>
+                            @else
+                                تجربه ثبت شده است
+                            @endif
                         @endif
                     </td>
 

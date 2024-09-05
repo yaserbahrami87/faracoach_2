@@ -14,7 +14,7 @@
         <!-- Time Picker -->
         <div class="faraCoachTimePicker swiper d-inline-block">
             <div class="swiper-wrapper">
-                @foreach($user->coach->bookings->where('status',0)->sortBy('start_date')->groupby('start_date') as $booking)
+                @foreach($user->coach->bookings->where('start_date','>',\App\Services\JalaliDate::get_jalaliNow())->where('status',0)->sortBy('start_date')->groupby('start_date') as $booking)
                         <div class="swiper-slide text-center">
                             <div >
                                 <input type="radio" class="btn-check d-inline-block" name="options" id="time_selected{{$booking->first()->id}}" wire:model="date" autocomplete="off" value="{{$booking->first()->start_date}}">

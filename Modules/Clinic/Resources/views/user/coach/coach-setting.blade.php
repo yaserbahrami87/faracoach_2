@@ -4,7 +4,6 @@
         <div class="card-body">
             <form method="post" action="{{route('user.clinic.coach.setting.update')}}">
                 {{csrf_field()}}
-
                 <div class="form-row">
                     @php
                         $counseling=NULL;
@@ -12,7 +11,7 @@
                         $test=NULL;
                     @endphp
                     @foreach(Auth::user()->request_portals->where('status',2)->where('type','coach_service_request') as $item )
-                        @if($item->clinicCategoriesRequestPortal->first()->parent_category->parent_category->where('title','خدمات')->first())
+                            @if($item->clinicCategoriesRequestPortal->first()->parent_category->parent_category->where('title','خدمات')->first())
                             @if(!$counseling)
                                 <div class="form-group col-md-12">
                                     <label for="counseling_fi">قیمت هر جلسه مشاوره: <span class="text-danger">*</span></label>

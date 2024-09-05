@@ -32,6 +32,8 @@ class CreateReservesTable extends Migration
             $table->string('date_fa',11)->nullable();
             $table->string('time_fa',11)->nullable();
             $table->string('result')->nullable();
+            $table->tinyInteger('rate')->nullable();
+            $table->string('feedback',200)->nullable();
             $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });
